@@ -1,0 +1,96 @@
+
+################################################################
+# SIMULATIONS RESULTS - MDA Research
+# Marta Bofill and Guadalupe Gómez
+################################################################
+
+rm(list = ls())
+load("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/results_sim/RESULTS_sim.RData")
+
+library(ggplot2)
+library(gridExtra)
+library(ggpubr)
+
+
+data$cases = 4
+for(i in 1:dim(data)[1]){
+  if(data$Delta_r[i]==0 & data$Delta_nr[i]==0) data$cases[i]= 1
+  if(data$Delta_r[i]==0 & data$Delta_nr[i]!=0) data$cases[i]= 2
+  if(data$Delta_r[i]!=0 & data$Delta_nr[i]==0) data$cases[i]=3
+}
+data$cases = as.factor(data$cases)
+summary(data$cases)
+
+data$diff_power = data$Test_Reject - data$Test_Reject_LR
+data$diff_alpha = data$Test_Reject_size - data$Test_Reject_LR_size
+
+
+summary(data$os_samplesize)
+data = subset(data, data$os_samplesize>100 & data$os_samplesize<5000)
+summary(data$os_samplesize)
+summary(data$os_effect)
+
+
+############
+# Boxplots alpha and power
+
+windows(height = 14, width = 14)
+
+p1 <- ggplot(data, aes(x=cases, y=Test_Reject,  color=cases)) +
+  geom_boxplot()  + labs(y = "Power RMST test")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+p2 <- ggplot(data, aes(x=cases, y=Test_Reject_LR,  color=cases)) +
+  geom_boxplot()  + labs(y = "Power logrank test") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+diff_p12 <- ggplot(data, aes(x=cases, y=diff_power,  color=cases)) +
+  geom_boxplot()  + labs(y = "Difference Power (RMST - logrank) ") #+ coord_cartesian(ylim = c(-0.1, 0.1))
+
+p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
+  geom_boxplot() + labs(y = "Significance level RMST test")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+p4 <- ggplot(data, aes(x=cases, y=Test_Reject_LR_size, color=cases)) +
+  geom_boxplot()+ labs(y = "Significance level logrank test") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
+  geom_boxplot()  + labs(y = "Difference Significance level (RMST - logrank )")+ coord_cartesian(ylim = c(-0.03, 0.03))
+
+
+figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
+annotate_figure(figure, top = text_grob(expression(paste("Power and Significance level (", beta^{(0)}, "=", beta^{(1)}, ")")),
+  # expression("Fuel Efficiency"~(beta_0*Omega)),
+  face = "bold", size = 14))
+
+############
+# Sample size and effect size
+
+windows(height = 14, width = 14)
+
+p5 <- ggplot(data, aes(x=cases, y=os_samplesize,  color=cases)) +
+  geom_boxplot(outlier.shape = NA) + labs(y = "Sample size") #+ scale_y_continuous(limits = quantile(data$os_samplesize, c(0.1, 0.9)))
+p5_bis <-  ggplot(data, aes(x=NA., y=os_samplesize, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Sample size",x = "Scenarios") +
+  theme(legend.position = "none",  axis.text.x = element_blank())
+p6 <- ggplot(data, aes(x=cases, y=os_effect,  color=cases)) +
+  geom_boxplot() + labs(y = "Effect size")
+p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Effect size",x = "Scenarios")+
+  theme(legend.position = "none",  axis.text.x = element_blank())
+
+figure2 <- ggarrange(p5,p5_bis,p6,p6_bis, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
+annotate_figure(figure2, top = text_grob(expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
+                                        # expression("Fuel Efficiency"~(beta_0*Omega)),
+                                        face = "bold", size = 14))
+
+############
+# Scatterplots alpha and power
+
+windows(height = 14, width = 14)
+par(mfrow = c(2, 2))
+
+p1 <- ggplot(data, aes(x=NA., y=Test_Reject, shape=cases, color=cases)) +
+  geom_point(size=2)+ ylim(0.65, 0.9) + labs(y = "Power RMST test")
+p2 <- ggplot(data, aes(x=NA., y=Test_Reject_LR, shape=cases, color=cases)) +
+  geom_point(size=2)+ ylim(0.65, 0.9) + labs(y = "Power logrank test")
+p3 <- ggplot(data, aes(x=NA., y=Test_Reject_size  , shape=cases, color=cases)) +
+  geom_point(size=2)+ ylim(0.035, 0.09) + labs(y = "Significance level RMST test")
+p4 <- ggplot(data, aes(x=NA., y=Test_Reject_LR_size, shape=cases, color=cases)) +
+  geom_point(size=2)+ ylim(0.035, 0.09) + labs(y = "Significance level logrank test")
+
+grid.arrange(p1,p2,p3,p4, ncol=2)
+
+################################################################
+################################################################
