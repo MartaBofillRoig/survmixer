@@ -7,6 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "marta.bofill.roig@upc.edu",
            comment = c(ORCID = "0000-0002-4400-7541"))
+Author: Marta Bofill Roig [aut, cre], Guadalupe Gomez Melis [ctb], Yu Shen [ctb]
+Maintainer: Marta Bofill Roig <marta.bofill.roig@upc.edu>
 Description: What the package does (one paragraph).
 License: GPL-3
 Encoding: UTF-8
