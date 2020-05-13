@@ -52,9 +52,10 @@ diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
 
 
 figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
-annotate_figure(figure, top = text_grob(expression(paste("Power and Significance level (", beta^{(0)}, "=", beta^{(1)}, ")")),
-  # expression("Fuel Efficiency"~(beta_0*Omega)),
-  face = "bold", size = 14))
+annotate_figure(figure,
+                top = text_grob("Power and Significance level",
+                # top = text_grob(expression(paste("Power and Significance level (", beta^{(0)}, "=", beta^{(1)}, ")")),
+                face = "bold", size = 14))
 
 ############
 # Sample size and effect size
@@ -71,9 +72,15 @@ p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom
   theme(legend.position = "none",  axis.text.x = element_blank())
 
 figure2 <- ggarrange(p5,p5_bis,p6,p6_bis, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
-annotate_figure(figure2, top = text_grob(expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
-                                        # expression("Fuel Efficiency"~(beta_0*Omega)),
+annotate_figure(figure2, top = text_grob("Sample size and Effect size",
+                                         # expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
                                         face = "bold", size = 14))
+
+
+summary(subset(data,data$cases==1)$os_effect);summary(subset(data,data$cases==1)$os_samplesize)
+summary(subset(data,data$cases==2)$os_effect);summary(subset(data,data$cases==2)$os_samplesize)
+summary(subset(data,data$cases==3)$os_effect);summary(subset(data,data$cases==3)$os_samplesize)
+summary(subset(data,data$cases==4)$os_effect);summary(subset(data,data$cases==4)$os_samplesize)
 
 ############
 # Scatterplots alpha and power
