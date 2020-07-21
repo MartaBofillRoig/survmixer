@@ -67,7 +67,7 @@ p5 <- ggplot(data, aes(x=cases, y=os_samplesize,  color=cases)) +
 p5_bis <-  ggplot(data, aes(x=NA., y=os_samplesize, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Sample size",x = "Scenarios") +
   theme(legend.position = "none",  axis.text.x = element_blank())
 p6 <- ggplot(data, aes(x=cases, y=os_effect,  color=cases)) +
-  geom_boxplot() + labs(y = "Effect size")
+  geom_boxplot() + labs(y = "Effect size (RMST difference)")
 p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Effect size",x = "Scenarios")+
   theme(legend.position = "none",  axis.text.x = element_blank())
 
@@ -75,6 +75,13 @@ figure2 <- ggarrange(p5,p5_bis,p6,p6_bis, ncol=2, nrow=2, common.legend = TRUE, 
 annotate_figure(figure2, top = text_grob("Sample size and Effect size",
                                          # expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
                                         face = "bold", size = 14))
+
+windows(height = 7, width = 10)
+
+figure2_bis <- ggarrange(p5,p6, ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
+annotate_figure(figure2_bis, top = text_grob("Sample size and Effect size",
+                                         # expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
+                                         face = "bold", size = 14))
 
 
 summary(subset(data,data$cases==1)$os_effect);summary(subset(data,data$cases==1)$os_samplesize)
