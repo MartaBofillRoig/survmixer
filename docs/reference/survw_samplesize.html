@@ -115,16 +115,27 @@
     <pre class="usage"><span class='fu'>survw_samplesize</span>(
   <span class='no'>ascale0_r</span>,
   <span class='no'>ascale0_nr</span>,
-  <span class='no'>delta_p</span>,
-  <span class='no'>p0</span>,
-  <span class='no'>bshape0</span>,
-  <span class='no'>bshape1</span>,
   <span class='no'>ascale1_r</span>,
   <span class='no'>ascale1_nr</span>,
+  <span class='no'>delta_p</span>,
+  <span class='no'>p0</span>,
+  <span class='no'>m0_r</span>,
+  <span class='no'>m0_nr</span>,
+  <span class='no'>diffm_r</span>,
+  <span class='no'>diffm_nr</span>,
+  <span class='no'>S0_r</span>,
+  <span class='no'>S0_nr</span>,
+  <span class='no'>diffS_r</span>,
+  <span class='no'>diffS_nr</span>,
+  <span class='no'>Delta_r</span>,
+  <span class='no'>Delta_nr</span>,
   <span class='no'>ascale_cens</span>,
   <span class='no'>tau</span>,
+  <span class='kw'>bshape0</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>bshape1</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.025</span>,
-  <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.2</span>
+  <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+  <span class='kw'>ss_strategy</span> <span class='kw'>=</span> <span class='fl'>0</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -139,22 +150,6 @@
       <td><p>scale parameter for the Weibull distribution in the control group for non-responders</p></td>
     </tr>
     <tr>
-      <th>delta_p</th>
-      <td><p>effect size for the response rate</p></td>
-    </tr>
-    <tr>
-      <th>p0</th>
-      <td><p>event rate for the response</p></td>
-    </tr>
-    <tr>
-      <th>bshape0</th>
-      <td><p>shape parameter for the Weibull distribution in the control group</p></td>
-    </tr>
-    <tr>
-      <th>bshape1</th>
-      <td><p>shape parameter for the Weibull distribution in the intervention group</p></td>
-    </tr>
-    <tr>
       <th>ascale1_r</th>
       <td><p>scale parameter for the Weibull distribution in the intervention group for responders</p></td>
     </tr>
@@ -163,12 +158,68 @@
       <td><p>scale parameter for the Weibull distribution in the intervention group for non-responders</p></td>
     </tr>
     <tr>
+      <th>delta_p</th>
+      <td><p>effect size for the response rate</p></td>
+    </tr>
+    <tr>
+      <th>p0</th>
+      <td><p>event rate for the response</p></td>
+    </tr>
+    <tr>
+      <th>m0_r</th>
+      <td><p>survival mean for responders in the control group</p></td>
+    </tr>
+    <tr>
+      <th>m0_nr</th>
+      <td><p>survival mean for non-responders in the control group</p></td>
+    </tr>
+    <tr>
+      <th>diffm_r</th>
+      <td><p>difference in survival means between groups for responders</p></td>
+    </tr>
+    <tr>
+      <th>diffm_nr</th>
+      <td><p>difference in survival means between groups for responders</p></td>
+    </tr>
+    <tr>
+      <th>S0_r</th>
+      <td><p>tau-year survival rates for responders in the control group</p></td>
+    </tr>
+    <tr>
+      <th>S0_nr</th>
+      <td><p>tau-year survival rates for non-responders in the control group</p></td>
+    </tr>
+    <tr>
+      <th>diffS_r</th>
+      <td><p>difference in tau-year survival rates for responders</p></td>
+    </tr>
+    <tr>
+      <th>diffS_nr</th>
+      <td><p>difference in tau-year survival rates for non-responders</p></td>
+    </tr>
+    <tr>
+      <th>Delta_r</th>
+      <td><p>restricted mean survival times (RMST) difference between intervention and control groups for responders</p></td>
+    </tr>
+    <tr>
+      <th>Delta_nr</th>
+      <td><p>RMST difference between intervention and control groups for non-responders</p></td>
+    </tr>
+    <tr>
       <th>ascale_cens</th>
       <td><p>distributional parameter for the exponential distribution for the censoring</p></td>
     </tr>
     <tr>
       <th>tau</th>
       <td><p>follow-up</p></td>
+    </tr>
+    <tr>
+      <th>bshape0</th>
+      <td><p>shape parameter for the Weibull distribution in the control group</p></td>
+    </tr>
+    <tr>
+      <th>bshape1</th>
+      <td><p>shape parameter for the Weibull distribution in the intervention group</p></td>
     </tr>
     <tr>
       <th>alpha</th>
