@@ -1,6 +1,6 @@
 #' Effect size calculation for mixture survival distributions
 #'
-#' @description The function `survw_effectsize` calculates the effect size  according to the information on responders and non-responders.
+#' @description The function `survw_effectsize` calculates the effect size in terms of the difference of restricted mean survival times (RMST) according to the information on responders and non-responders.
 #'
 #' @param ascale0_r scale parameter for the Weibull distribution in the control group for responders
 #' @param ascale0_nr scale parameter for the Weibull distribution in the control group for non-responders
@@ -11,9 +11,9 @@
 #' @param ascale1_r scale parameter for the Weibull distribution in the intervention group for responders
 #' @param ascale1_nr scale parameter for the Weibull distribution in the intervention group for non-responders
 #' @param tau follow-up
-#' @param Delta_r survival effect size between intervention and control groups for responders
-#' @param Delta_0  survival effect size between responders and non-responders in the control group
-#' @param Delta_nr survival effect size between intervention and control groups for non-responders
+#' @param Delta_r RMST difference between intervention and control groups for responders
+#' @param Delta_nr RMST difference between intervention and control groups for non-responders
+#' @param Delta_0  RMST difference between responders and non-responders in the control group
 #' @param anticipated_effects Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (ascale0_r, ascale0_nr, ascale1_r, ascale1_nr, bshape0, bshape1).
 #'
 #'
