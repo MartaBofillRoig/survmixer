@@ -112,7 +112,7 @@
     <p>The function `survmixture_f` computes the survival distribution as a mixture of  of responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>survmixture_f</span>(<span class='no'>t</span>, <span class='no'>lambda_r</span>, <span class='no'>lambda_nr</span>, <span class='kw'>bet</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>p</span>)</pre>
+    <pre class="usage"><span class='fu'>survmixture_f</span>(<span class='no'>t</span>, <span class='no'>ascale_r</span>, <span class='no'>ascale_nr</span>, <span class='kw'>bshape</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>p</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -122,15 +122,15 @@
       <td><p>time at which the survival distribution is evaluated</p></td>
     </tr>
     <tr>
-      <th>lambda_r</th>
+      <th>ascale_r</th>
       <td><p>scale parameter for the Weibull distribution   for responders</p></td>
     </tr>
     <tr>
-      <th>lambda_nr</th>
+      <th>ascale_nr</th>
       <td><p>scale parameter for the Weibull distribution  for non-responders</p></td>
     </tr>
     <tr>
-      <th>bet</th>
+      <th>bshape</th>
       <td><p>shape parameter for the Weibull distribution</p></td>
     </tr>
     <tr>

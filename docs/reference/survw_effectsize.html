@@ -113,14 +113,14 @@
     </div>
 
     <pre class="usage"><span class='fu'>survw_effectsize</span>(
-  <span class='no'>lambda0_r</span>,
-  <span class='no'>lambda0_nr</span>,
+  <span class='no'>ascale0_r</span>,
+  <span class='no'>ascale0_nr</span>,
   <span class='no'>delta_p</span>,
   <span class='no'>p0</span>,
-  <span class='no'>beta0</span>,
-  <span class='no'>beta1</span>,
-  <span class='no'>lambda1_r</span>,
-  <span class='no'>lambda1_nr</span>,
+  <span class='no'>bshape0</span>,
+  <span class='no'>bshape1</span>,
+  <span class='no'>ascale1_r</span>,
+  <span class='no'>ascale1_nr</span>,
   <span class='no'>tau</span>,
   <span class='kw'>Delta_r</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>Delta_0</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -132,11 +132,11 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lambda0_r</th>
+      <th>ascale0_r</th>
       <td><p>scale parameter for the Weibull distribution in the control group for responders</p></td>
     </tr>
     <tr>
-      <th>lambda0_nr</th>
+      <th>ascale0_nr</th>
       <td><p>scale parameter for the Weibull distribution in the control group for non-responders</p></td>
     </tr>
     <tr>
@@ -148,19 +148,19 @@
       <td><p>event rate for the response</p></td>
     </tr>
     <tr>
-      <th>beta0</th>
+      <th>bshape0</th>
       <td><p>shape parameter for the Weibull distribution in the control group</p></td>
     </tr>
     <tr>
-      <th>beta1</th>
+      <th>bshape1</th>
       <td><p>shape parameter for the Weibull distribution in the intervention group</p></td>
     </tr>
     <tr>
-      <th>lambda1_r</th>
+      <th>ascale1_r</th>
       <td><p>scale parameter for the Weibull distribution in the intervention group for responders</p></td>
     </tr>
     <tr>
-      <th>lambda1_nr</th>
+      <th>ascale1_nr</th>
       <td><p>scale parameter for the Weibull distribution in the intervention group for non-responders</p></td>
     </tr>
     <tr>
@@ -181,7 +181,7 @@
     </tr>
     <tr>
       <th>anticipated_effects</th>
-      <td><p>Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (lambda0_r, lambda0_nr, lambda1_r, lambda1_nr, beta0, beta1).</p></td>
+      <td><p>Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (ascale0_r, ascale0_nr, ascale1_r, ascale1_nr, bshape0, bshape1).</p></td>
     </tr>
     </table>
 
