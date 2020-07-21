@@ -5,14 +5,14 @@
 \title{Effect size calculation for mixture survival distributions}
 \usage{
 survw_effectsize(
-  lambda0_r,
-  lambda0_nr,
+  ascale0_r,
+  ascale0_nr,
   delta_p,
   p0,
-  beta0,
-  beta1,
-  lambda1_r,
-  lambda1_nr,
+  bshape0,
+  bshape1,
+  ascale1_r,
+  ascale1_nr,
   tau,
   Delta_r = NULL,
   Delta_0 = NULL,
@@ -21,21 +21,21 @@ survw_effectsize(
 )
 }
 \arguments{
-\item{lambda0_r}{scale parameter for the Weibull distribution in the control group for responders}
+\item{ascale0_r}{scale parameter for the Weibull distribution in the control group for responders}
 
-\item{lambda0_nr}{scale parameter for the Weibull distribution in the control group for non-responders}
+\item{ascale0_nr}{scale parameter for the Weibull distribution in the control group for non-responders}
 
 \item{delta_p}{effect size for the response rate}
 
 \item{p0}{event rate for the response}
 
-\item{beta0}{shape parameter for the Weibull distribution in the control group}
+\item{bshape0}{shape parameter for the Weibull distribution in the control group}
 
-\item{beta1}{shape parameter for the Weibull distribution in the intervention group}
+\item{bshape1}{shape parameter for the Weibull distribution in the intervention group}
 
-\item{lambda1_r}{scale parameter for the Weibull distribution in the intervention group for responders}
+\item{ascale1_r}{scale parameter for the Weibull distribution in the intervention group for responders}
 
-\item{lambda1_nr}{scale parameter for the Weibull distribution in the intervention group for non-responders}
+\item{ascale1_nr}{scale parameter for the Weibull distribution in the intervention group for non-responders}
 
 \item{tau}{follow-up}
 
@@ -45,7 +45,7 @@ survw_effectsize(
 
 \item{Delta_nr}{survival effect size between intervention and control groups for non-responders}
 
-\item{anticipated_effects}{Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (lambda0_r, lambda0_nr, lambda1_r, lambda1_nr, beta0, beta1).}
+\item{anticipated_effects}{Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (ascale0_r, ascale0_nr, ascale1_r, ascale1_nr, bshape0, bshape1).}
 }
 \value{
 Effect size for overall survival

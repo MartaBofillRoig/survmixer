@@ -4,16 +4,16 @@
 \alias{survmixture_f}
 \title{Mixture survival function}
 \usage{
-survmixture_f(t, lambda_r, lambda_nr, bet = 1, p)
+survmixture_f(t, ascale_r, ascale_nr, bshape = 1, p)
 }
 \arguments{
 \item{t}{time at which the survival distribution is evaluated}
 
-\item{lambda_r}{scale parameter for the Weibull distribution   for responders}
+\item{ascale_r}{scale parameter for the Weibull distribution   for responders}
 
-\item{lambda_nr}{scale parameter for the Weibull distribution  for non-responders}
+\item{ascale_nr}{scale parameter for the Weibull distribution  for non-responders}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 
 \item{p}{event rate for the response}
 }

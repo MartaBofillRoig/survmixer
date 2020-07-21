@@ -5,8 +5,8 @@
 #'
 #' @param low rmst evaluated from low to tau
 #' @param tau rmst evaluated from low to tau
-#' @param lambda scale parameter for the Weibull distribution
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale scale parameter for the Weibull distribution
+#' @param bshape shape parameter for the Weibull distribution
 #'
 #'
 #' @export
@@ -16,8 +16,8 @@
 #'
 
 #'
-rmstw_f <- function(lambda,bet,tau,low=0){
-  r <- integrate(survw_f, lower = low, upper = tau, lambda, bet)$value
+rmstw_f <- function(ascale,bshape,tau,low=0){
+  r <- integrate(survw_f, lower = low, upper = tau, ascale, bshape)$value
   return(r)
 }
 

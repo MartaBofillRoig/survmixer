@@ -4,14 +4,14 @@
 \alias{survw_derivf}
 \title{Derivative Weibull survival function}
 \usage{
-survw_derivf(t, lambda, bet = 1)
+survw_derivf(t, ascale, bshape = 1)
 }
 \arguments{
 \item{t}{time}
 
-\item{lambda}{scale parameter for the Weibull distribution}
+\item{ascale}{scale parameter for the Weibull distribution}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 }
 \value{
 derivative

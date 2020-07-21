@@ -8,12 +8,25 @@ setwd("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Example"
 source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/Functions.R')
 
 library(ggplot2)
+
 ################################################################
 # Functions
-param_exp <- function(s,t){
-  p = (-log(s))/t
-  return(p)
+################################################################
+
+# Weibull parametrization
+# S(x) =  exp(- (x/a)^b)
+
+# param_scale: returns the value of the scale parameter a given the survival (s) at time t
+param_scale <- function(s,t,shape=1){
+  scale = -t/((log(s))^(1/shape))
+  return(scale)
 }
+
+# OLD
+# param_exp <- function(s,t){
+#   p = (-log(s))/t
+#   return(p)
+# }
 
 ################################################################
 # From Figure 3: Subgroup analysis for event-free survival
@@ -24,22 +37,16 @@ s0_r = 0.55
 s1_nr = 0.38
 s0_nr = 0.41
 
-lambda1_r = param_exp(s=s1_r, t=5)
-lambda0_r = param_exp(s=s0_r, t=5)
+wscale1_r = param_scale(s=s1_r, t=5)
+wscale0_r = param_scale(s=s0_r, t=5)
 
-lambda1_nr = param_exp(s=s1_nr, t=5)
-lambda0_nr = param_exp(s=s0_nr, t=5)
+wscale1_nr = param_scale(s=s1_nr, t=5)
+wscale0_nr = param_scale(s=s0_nr, t=5)
 
 # Censoring distribution
-mean0_nr = meanw_f(lambda=lambda0_nr,bet=1)
-lambda_c = 2*mean0_nr
+# mean0_nr = meanw_f(ascale=wscale0_nr,bshape=1)
+# ascale_c = 2*mean0_nr
 
-
-# Means
-wscale0_r = 1/lambda0_r
-wscale1_r = 1/lambda1_r
-wscale0_nr = 1/lambda0_nr
-wscale1_nr = 1/lambda1_nr
 
 
 # Response pCR
@@ -56,6 +63,9 @@ library(survival)
 source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/Sim_Functions.R')
 # library(xlsx)
 
+set.seed(1452)
+# set.seed(2020)
+
 alpha=0.05
 beta=0.2
 z_alpha <- qnorm(1-alpha,0,1)
@@ -66,26 +76,29 @@ q_chi=qchisq(1-alpha, df=1)
 nsim=10000
 
 # Using our design
-(n= survw_samplesize(lambda0_r=wscale0_r, lambda0_nr=wscale0_nr, delta_p=p1-p0, p0=p0, beta0=1, beta1=1, lambda1_r=wscale1_r,
-                     lambda1_nr=wscale1_nr, lambda_cens = 1/lambda_c, tau=5, alpha=0.05, beta=0.2))
+(n= survw_samplesize(ascale0_r=wscale0_r, ascale0_nr=wscale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=wscale1_r,
+                     ascale1_nr=wscale1_nr,
+                     # ascale_cens = ascale_c,
+                     ascale_cens = 7,
+                     tau=5, alpha=0.05, beta=0.2))
 
 
 power_rmst <- sum(replicate(nsim, fun_simtest(n0=n/2,n1=n/2,
                                               p0=p0,p1=p1,
-                                              bet0=1,bet1=1,
-                                              lambda_r0=wscale0_r,lambda_r1=wscale1_r,
-                                              lambda_nr0=wscale0_nr,lambda_nr1=wscale1_nr,
-                                              lambda_cens=1/lambda_c,
-                                              # lambda_cens=3,
+                                              bshape0=1,bshape1=1,
+                                              ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                              ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                              # ascale_cens=ascale_c,
+                                              ascale_cens=7,
                                               tau=5,truncated=T)) > z_alpha)/nsim
 
 power_lr <- sum(replicate(nsim,  fun_simtest_LR(n0=n/2,n1=n/2,
                                                 p0=p0,p1=p1,
-                                                bet0=1,bet1=1,
-                                                lambda_r0=wscale0_r,lambda_r1=wscale1_r,
-                                                lambda_nr0=wscale0_nr,lambda_nr1=wscale1_nr,
-                                                lambda_cens=1/lambda_c,
-                                                # lambda_cens=3,
+                                                bshape0=1,bshape1=1,
+                                                ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                # ascale_cens=ascale_c,
+                                                ascale_cens=7,
                                                 tau=5,truncated=T)) > q_chi)/nsim
 
 
@@ -95,21 +108,21 @@ power_lr <- sum(replicate(nsim,  fun_simtest_LR(n0=n/2,n1=n/2,
 # Using NOAH's design
 powerNT_rmst <- sum(replicate(nsim, fun_simtest(n0=118,n1=117,
                                                 p0=p0,p1=p1,
-                                                bet0=1,bet1=1,
-                                                lambda_r0=wscale0_r,lambda_r1=wscale1_r,
-                                                lambda_nr0=wscale0_nr,lambda_nr1=wscale1_nr,
-                                                lambda_cens=1/lambda_c,
-                                                # lambda_cens=3,
-                                                tau=5,truncated=T)) > z_alpha)/nsim
+                                                bshape0=1,bshape1=1,
+                                                ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                # ascale_cens=ascale_c,
+                                                ascale_cens=7,
+                                                tau=3,truncated=T)) > z_alpha)/nsim
 
 powerNT_lr <- sum(replicate(nsim,  fun_simtest_LR(n0=118,n1=117,
                                                   p0=p0,p1=p1,
-                                                  bet0=1,bet1=1,
-                                                  lambda_r0=wscale0_r,lambda_r1=wscale1_r,
-                                                  lambda_nr0=wscale0_nr,lambda_nr1=wscale1_nr,
-                                                  lambda_cens=1/lambda_c,
-                                                  # lambda_cens=3,
-                                                  tau=5,truncated=T)) > q_chi)/nsim
+                                                  bshape0=1,bshape1=1,
+                                                  ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                  ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                  # ascale_cens=ascale_c,
+                                                  ascale_cens=7,
+                                                  tau=3,truncated=T)) > q_chi)/nsim
 
 
 (c(powerNT_rmst,powerNT_lr))
@@ -127,13 +140,13 @@ source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulat
 
 set.seed(1425)
 
-data_full <- fun_sim(n0=10000,n1=10000,
+data_full <- fun_sim(n0=118,n1=117,
                      p0=p0,p1=p1,
-                     bet0=1,bet1=1,
-                     lambda_r0=wscale0_r,lambda_r1=wscale1_r,
-                     lambda_nr0=wscale1_nr,lambda_nr1=wscale1_nr,
-                     lambda_cens=1/lambda_c,
-                     # lambda_cens=3,
+                     bshape0=1,bshape1=1,
+                     ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                     ascale0_nr=wscale1_nr,ascale1_nr=wscale1_nr,
+                     # ascale_cens=1/ascale_c,
+                     ascale_cens=7,
                      tau=5,truncated=T)
 
 data_r = subset(data_full,data_full$resp==1)
@@ -150,7 +163,7 @@ plot_full <- ggsurvplot(
   pval = TRUE,             # show p-value of log-rank test.
   conf.int = TRUE,         # show confidence intervals for
   # point estimates of survival curves.
-  xlim = c(0,5),         # present narrower X axis, but not affect
+  xlim = c(0,3.5),         # present narrower X axis, but not affect
   # survival estimates.
   xlab = "Time in years",   # customize X axis label.
   # break.time.by = 100,     # break X axis in time intervals by 500.

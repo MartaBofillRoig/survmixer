@@ -4,12 +4,12 @@
 \alias{rmstw_f}
 \title{Restricted mean survival times Weibull distribution}
 \usage{
-rmstw_f(lambda, bet, tau, low = 0)
+rmstw_f(ascale, bshape, tau, low = 0)
 }
 \arguments{
-\item{lambda}{scale parameter for the Weibull distribution}
+\item{ascale}{scale parameter for the Weibull distribution}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 
 \item{tau}{rmst evaluated from low to tau}
 

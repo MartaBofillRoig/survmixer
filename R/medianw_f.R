@@ -3,8 +3,8 @@
 #' @description The functions `meanw_f` and `medianw_f` calculate the mean and median for Weibull distributions, respectively.
 #'
 #'
-#' @param lambda scale parameter for the Weibull distribution
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale scale parameter for the Weibull distribution
+#' @param bshape shape parameter for the Weibull distribution
 #'
 #'
 #' @export
@@ -15,8 +15,8 @@
 #' The functions `meanw_f` and `medianw_f` calculate the mean and median for Weibull distributions, respectively.
 #'
 #'
-medianw_f <- function(lambda,bet){
-  median = lambda*(log(2)^(1/bet))
+medianw_f <- function(ascale,bshape){
+  median = ascale*(log(2)^(1/bshape))
   return(median)
 }
 
@@ -26,8 +26,8 @@ medianw_f <- function(lambda,bet){
 #' @description The functions `meanw_f` and `medianw_f` calculate the mean and median for Weibull distributions, respectively.
 #'
 #'
-#' @param lambda scale parameter for the Weibull distribution
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale scale parameter for the Weibull distribution
+#' @param bshape shape parameter for the Weibull distribution
 #'
 #'
 #' @export
@@ -35,8 +35,8 @@ medianw_f <- function(lambda,bet){
 #' @return mean
 #' @author Marta Bofill Roig
 #'
-meanw_f <- function(lambda,bet){
-  mean = lambda*gamma(1+1/bet)
+meanw_f <- function(ascale,bshape){
+  mean = ascale*gamma(1+1/bshape)
   return(mean)
 }
 

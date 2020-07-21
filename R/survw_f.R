@@ -4,8 +4,8 @@
 #'
 #'
 #' @param t time
-#' @param lambda scale parameter for the Weibull distribution
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale scale parameter for the Weibull distribution
+#' @param bshape shape parameter for the Weibull distribution
 #'
 #'
 #' @export
@@ -15,8 +15,8 @@
 #'
 
 #'
-survw_f <- function(t,lambda,bet){
-  return(exp(-(t/lambda)^bet))
+survw_f <- function(t,ascale,bshape){
+  return(exp(-(t/ascale)^bshape))
 }
 
 

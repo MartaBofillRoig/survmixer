@@ -4,12 +4,12 @@
 \alias{medianw_f}
 \title{Median Weibull survival function}
 \usage{
-medianw_f(lambda, bet)
+medianw_f(ascale, bshape)
 }
 \arguments{
-\item{lambda}{scale parameter for the Weibull distribution}
+\item{ascale}{scale parameter for the Weibull distribution}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 }
 \value{
 median

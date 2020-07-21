@@ -4,9 +4,9 @@
 #'
 #'
 #' @param t time at which the survival distribution is evaluated
-#' @param lambda_r scale parameter for the Weibull distribution   for responders
-#' @param lambda_nr scale parameter for the Weibull distribution  for non-responders
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale_r scale parameter for the Weibull distribution   for responders
+#' @param ascale_nr scale parameter for the Weibull distribution  for non-responders
+#' @param bshape shape parameter for the Weibull distribution
 #' @param p event rate for the response
 #'
 #' @export
@@ -15,7 +15,7 @@
 #' @author Marta Bofill Roig
 #'
 #'
-survmixture_f <- function(t,lambda_r, lambda_nr, bet=1, p){
-  s <- survw_f(t,lambda_r,bet)*p + survw_f(t,lambda_nr,bet)*(1-p)
+survmixture_f <- function(t,ascale_r, ascale_nr, bshape=1, p){
+  s <- survw_f(t,ascale_r,bshape)*p + survw_f(t,ascale_nr,bshape)*(1-p)
   return(s)
 }

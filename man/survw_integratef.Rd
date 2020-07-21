@@ -4,16 +4,16 @@
 \alias{survw_integratef}
 \title{Integrate function}
 \usage{
-survw_integratef(t, tau, lambda, bet)
+survw_integratef(t, tau, ascale, bshape)
 }
 \arguments{
 \item{t}{time}
 
 \item{tau}{follow-up}
 
-\item{lambda}{scale parameter for the Weibull distribution}
+\item{ascale}{scale parameter for the Weibull distribution}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 }
 \value{
 Variance computation

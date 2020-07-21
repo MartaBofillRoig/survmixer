@@ -4,18 +4,18 @@
 \alias{var_f}
 \title{Variance computation}
 \usage{
-var_f(lambda_r, lambda_nr, tau, bet, lambda_cens, p)
+var_f(ascale_r, ascale_nr, tau, bshape, ascale_cens, p)
 }
 \arguments{
-\item{lambda_r}{scale parameter for the Weibull distribution   for responders}
+\item{ascale_r}{scale parameter for the Weibull distribution   for responders}
 
-\item{lambda_nr}{scale parameter for the Weibull distribution  for non-responders}
+\item{ascale_nr}{scale parameter for the Weibull distribution  for non-responders}
 
 \item{tau}{follow-up}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 
-\item{lambda_cens}{distributional parameter for the exponential distribution for the censoring}
+\item{ascale_cens}{distributional parameter for the exponential distribution for the censoring}
 
 \item{p}{event rate for the response}
 }

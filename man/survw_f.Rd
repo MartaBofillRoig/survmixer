@@ -4,14 +4,14 @@
 \alias{survw_f}
 \title{Weibull survival function}
 \usage{
-survw_f(t, lambda, bet)
+survw_f(t, ascale, bshape)
 }
 \arguments{
 \item{t}{time}
 
-\item{lambda}{scale parameter for the Weibull distribution}
+\item{ascale}{scale parameter for the Weibull distribution}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 }
 \value{
 survival function

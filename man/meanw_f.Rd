@@ -4,12 +4,12 @@
 \alias{meanw_f}
 \title{Mean Weibull survival function}
 \usage{
-meanw_f(lambda, bet)
+meanw_f(ascale, bshape)
 }
 \arguments{
-\item{lambda}{scale parameter for the Weibull distribution}
+\item{ascale}{scale parameter for the Weibull distribution}
 
-\item{bet}{shape parameter for the Weibull distribution}
+\item{bshape}{shape parameter for the Weibull distribution}
 }
 \value{
 mean

@@ -54,7 +54,7 @@ diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
 figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
 annotate_figure(figure,
                 top = text_grob("Power and Significance level",
-                # top = text_grob(expression(paste("Power and Significance level (", beta^{(0)}, "=", beta^{(1)}, ")")),
+                # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                 face = "bold", size = 14))
 
 ############
@@ -73,14 +73,14 @@ p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom
 
 figure2 <- ggarrange(p5,p5_bis,p6,p6_bis, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
 annotate_figure(figure2, top = text_grob("Sample size and Effect size",
-                                         # expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
+                                         # expression(paste("Sample size and Effect size (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                                         face = "bold", size = 14))
 
 windows(height = 7, width = 10)
 
 figure2_bis <- ggarrange(p5,p6, ncol=2, nrow=1, common.legend = TRUE, legend="bottom")
 annotate_figure(figure2_bis, top = text_grob("Sample size and Effect size",
-                                         # expression(paste("Sample size and Effect size (", beta^{(0)}, "=", beta^{(1)}, ")")),
+                                         # expression(paste("Sample size and Effect size (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                                          face = "bold", size = 14))
 
 

@@ -1,5 +1,5 @@
 Package: survmixer
-Title: Sample size and effect size calculations for mixture survival distributions
+Title: Design of clinical trials with survival endpoints based on binary response.
 Version: 0.0.0.9000
 Authors@R: c(person("Marta", "Bofill Roig", email = "marta.bofill.roig@upc.edu", role = c("cre","aut"), 
            comment = c(ORCID = "0000-0002-4400-7541")), 
@@ -7,7 +7,7 @@ Authors@R: c(person("Marta", "Bofill Roig", email = "marta.bofill.roig@upc.edu",
            person("Yu", "Shen", role = "ctb")) 
 Author: Marta Bofill Roig [aut, cre], Guadalupe Gomez Melis [ctb], Yu Shen [ctb]
 Maintainer: Marta Bofill Roig <marta.bofill.roig@upc.edu>
-Description: What the package does (one paragraph).
+Description: Sample size and effect size calculations for survival endpoints based on mixture survival-by-response model.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

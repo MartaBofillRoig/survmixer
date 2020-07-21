@@ -4,8 +4,8 @@
 #'
 #'
 #' @param t time
-#' @param lambda scale parameter for the Weibull distribution
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale scale parameter for the Weibull distribution
+#' @param bshape shape parameter for the Weibull distribution
 #'
 #'
 #' @export
@@ -13,7 +13,7 @@
 #' @return derivative
 #' @author Marta Bofill Roig
 #'
-survw_derivf <- function(t,lambda,bet=1){
-  return(-bet*(t/lambda)^bet*exp(-(t/lambda)^bet)/t)
+survw_derivf <- function(t,ascale,bshape=1){
+  return(-bshape*(t/ascale)^bshape*exp(-(t/ascale)^bshape)/t)
 }
 

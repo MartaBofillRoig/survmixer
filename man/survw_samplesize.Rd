@@ -5,38 +5,38 @@
 \title{Sample size calculation for mixture survival distributions}
 \usage{
 survw_samplesize(
-  lambda0_r,
-  lambda0_nr,
+  ascale0_r,
+  ascale0_nr,
   delta_p,
   p0,
-  beta0,
-  beta1,
-  lambda1_r,
-  lambda1_nr,
-  lambda_cens,
+  bshape0,
+  bshape1,
+  ascale1_r,
+  ascale1_nr,
+  ascale_cens,
   tau,
   alpha = 0.025,
   beta = 0.2
 )
 }
 \arguments{
-\item{lambda0_r}{scale parameter for the Weibull distribution in the control group for responders}
+\item{ascale0_r}{scale parameter for the Weibull distribution in the control group for responders}
 
-\item{lambda0_nr}{scale parameter for the Weibull distribution in the control group for non-responders}
+\item{ascale0_nr}{scale parameter for the Weibull distribution in the control group for non-responders}
 
 \item{delta_p}{effect size for the response rate}
 
 \item{p0}{event rate for the response}
 
-\item{beta0}{shape parameter for the Weibull distribution in the control group}
+\item{bshape0}{shape parameter for the Weibull distribution in the control group}
 
-\item{beta1}{shape parameter for the Weibull distribution in the intervention group}
+\item{bshape1}{shape parameter for the Weibull distribution in the intervention group}
 
-\item{lambda1_r}{scale parameter for the Weibull distribution in the intervention group for responders}
+\item{ascale1_r}{scale parameter for the Weibull distribution in the intervention group for responders}
 
-\item{lambda1_nr}{scale parameter for the Weibull distribution in the intervention group for non-responders}
+\item{ascale1_nr}{scale parameter for the Weibull distribution in the intervention group for non-responders}
 
-\item{lambda_cens}{distributional parameter for the exponential distribution for the censoring}
+\item{ascale_cens}{distributional parameter for the exponential distribution for the censoring}
 
 \item{tau}{follow-up}
 

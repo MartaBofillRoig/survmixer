@@ -4,10 +4,10 @@
 #'
 #'
 #' @param t time at which the survival distribution is evaluated
-#' @param lambda_r scale parameter for the Weibull distribution   for responders
-#' @param lambda_nr scale parameter for the Weibull distribution  for non-responders
-#' @param lambda_cens distributional parameter for the exponential distribution for the censoring
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale_r scale parameter for the Weibull distribution   for responders
+#' @param ascale_nr scale parameter for the Weibull distribution  for non-responders
+#' @param ascale_cens distributional parameter for the exponential distribution for the censoring
+#' @param bshape shape parameter for the Weibull distribution
 #' @param p event rate for the response
 #' @param tau follow-up
 #'
@@ -19,13 +19,13 @@
 #'
 #'
 #'
-inside_var <- function(t,lambda_r,lambda_nr,tau,bet,lambda_cens,p){
+inside_var <- function(t,ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
 
-  num = p*sapply(t,survw_integratef,lambda=lambda_r,bet=bet,tau=tau)+(1-p)*sapply(t,survw_integratef,lambda=lambda_nr,bet=bet,tau=tau)
-  den = survmixture_f(t,lambda_r, lambda_nr, bet, p)
-  dervS = p*survw_derivf(t,lambda_r,bet) + (1-p)*survw_derivf(t,lambda_nr,bet)
+  num = p*sapply(t,survw_integratef,ascale=ascale_r,bshape=bshape,tau=tau)+(1-p)*sapply(t,survw_integratef,ascale=ascale_nr,bshape=bshape,tau=tau)
+  den = survmixture_f(t,ascale_r, ascale_nr, bshape, p)
+  dervS = p*survw_derivf(t,ascale_r,bshape) + (1-p)*survw_derivf(t,ascale_nr,bshape)
 
-  inside_integral <- (num/den)^2*(1/survw_f(t,lambda_cens,bet=1))*dervS
+  inside_integral <- (num/den)^2*(1/survw_f(t,ascale_cens,bshape=1))*dervS
 
   return(-inside_integral)
 }
@@ -35,12 +35,12 @@ inside_var <- function(t,lambda_r,lambda_nr,tau,bet,lambda_cens,p){
 #' @description The   function  `var_f` computes the variance.
 #'
 #'
-#' @param lambda_r scale parameter for the Weibull distribution   for responders
-#' @param lambda_nr scale parameter for the Weibull distribution  for non-responders
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale_r scale parameter for the Weibull distribution   for responders
+#' @param ascale_nr scale parameter for the Weibull distribution  for non-responders
+#' @param bshape shape parameter for the Weibull distribution
 #' @param p event rate for the response
 #' @param tau follow-up
-#' @param lambda_cens distributional parameter for the exponential distribution for the censoring
+#' @param ascale_cens distributional parameter for the exponential distribution for the censoring
 #'
 #'
 #' @export
@@ -50,16 +50,16 @@ inside_var <- function(t,lambda_r,lambda_nr,tau,bet,lambda_cens,p){
 #'
 #'
 #'
-var_f <- function(lambda_r,lambda_nr,tau,bet,lambda_cens,p){
-  integrate(inside_var,lower=0,upper=tau,lambda_r=lambda_r, lambda_nr= lambda_nr,tau=tau,bet=bet,lambda_cens=lambda_cens,p=p)$value
+var_f <- function(ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
+  integrate(inside_var,lower=0,upper=tau,ascale_r=ascale_r, ascale_nr= ascale_nr,tau=tau,bshape=bshape,ascale_cens=ascale_cens,p=p)$value
 }
 
 #' Integrate function
 #' @description the function `survw_integratef` is used for the integrations
 #'
 #'
-#' @param lambda scale parameter for the Weibull distribution
-#' @param bet shape parameter for the Weibull distribution
+#' @param ascale scale parameter for the Weibull distribution
+#' @param bshape shape parameter for the Weibull distribution
 #' @param tau follow-up
 #' @param t time
 #'
@@ -71,7 +71,7 @@ var_f <- function(lambda_r,lambda_nr,tau,bet,lambda_cens,p){
 #'
 #'
 #'
-survw_integratef <- function(t,tau, lambda,bet){
-  int <- integrate(survw_f,lower=t, upper=tau,lambda,bet)$value
+survw_integratef <- function(t,tau, ascale,bshape){
+  int <- integrate(survw_f,lower=t, upper=tau,ascale,bshape)$value
   return(int)
 }
