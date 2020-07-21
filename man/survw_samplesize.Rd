@@ -74,6 +74,8 @@ survw_samplesize(
 \item{alpha}{type I error}
 
 \item{beta}{type II error}
+
+\item{ss_strategy}{Sample size strategy to be used.}
 }
 \value{
 Sample size for overall survival

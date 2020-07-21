@@ -24,6 +24,7 @@
 #' @param bshape1 shape parameter for the Weibull distribution in the intervention group
 #' @param alpha type I error
 #' @param beta type II error
+#' @param ss_strategy Sample size strategy to be used.
 #'
 #' @export
 #'
