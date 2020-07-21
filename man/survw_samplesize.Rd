@@ -7,16 +7,27 @@
 survw_samplesize(
   ascale0_r,
   ascale0_nr,
-  delta_p,
-  p0,
-  bshape0,
-  bshape1,
   ascale1_r,
   ascale1_nr,
+  delta_p,
+  p0,
+  m0_r,
+  m0_nr,
+  diffm_r,
+  diffm_nr,
+  S0_r,
+  S0_nr,
+  diffS_r,
+  diffS_nr,
+  Delta_r,
+  Delta_nr,
   ascale_cens,
   tau,
+  bshape0 = 1,
+  bshape1 = 1,
   alpha = 0.025,
-  beta = 0.2
+  beta = 0.2,
+  ss_strategy = 0
 )
 }
 \arguments{
@@ -24,21 +35,41 @@ survw_samplesize(
 
 \item{ascale0_nr}{scale parameter for the Weibull distribution in the control group for non-responders}
 
-\item{delta_p}{effect size for the response rate}
-
-\item{p0}{event rate for the response}
-
-\item{bshape0}{shape parameter for the Weibull distribution in the control group}
-
-\item{bshape1}{shape parameter for the Weibull distribution in the intervention group}
-
 \item{ascale1_r}{scale parameter for the Weibull distribution in the intervention group for responders}
 
 \item{ascale1_nr}{scale parameter for the Weibull distribution in the intervention group for non-responders}
 
+\item{delta_p}{effect size for the response rate}
+
+\item{p0}{event rate for the response}
+
+\item{m0_r}{survival mean for responders in the control group}
+
+\item{m0_nr}{survival mean for non-responders in the control group}
+
+\item{diffm_r}{difference in survival means between groups for responders}
+
+\item{diffm_nr}{difference in survival means between groups for responders}
+
+\item{S0_r}{tau-year survival rates for responders in the control group}
+
+\item{S0_nr}{tau-year survival rates for non-responders in the control group}
+
+\item{diffS_r}{difference in tau-year survival rates for responders}
+
+\item{diffS_nr}{difference in tau-year survival rates for non-responders}
+
+\item{Delta_r}{restricted mean survival times (RMST) difference between intervention and control groups for responders}
+
+\item{Delta_nr}{RMST difference between intervention and control groups for non-responders}
+
 \item{ascale_cens}{distributional parameter for the exponential distribution for the censoring}
 
 \item{tau}{follow-up}
+
+\item{bshape0}{shape parameter for the Weibull distribution in the control group}
+
+\item{bshape1}{shape parameter for the Weibull distribution in the intervention group}
 
 \item{alpha}{type I error}
 

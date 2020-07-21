@@ -39,11 +39,11 @@ survw_effectsize(
 
 \item{tau}{follow-up}
 
-\item{Delta_r}{survival effect size between intervention and control groups for responders}
+\item{Delta_r}{RMST difference between intervention and control groups for responders}
 
-\item{Delta_0}{survival effect size between responders and non-responders in the control group}
+\item{Delta_0}{RMST difference between responders and non-responders in the control group}
 
-\item{Delta_nr}{survival effect size between intervention and control groups for non-responders}
+\item{Delta_nr}{RMST difference between intervention and control groups for non-responders}
 
 \item{anticipated_effects}{Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (ascale0_r, ascale0_nr, ascale1_r, ascale1_nr, bshape0, bshape1).}
 }
@@ -51,7 +51,7 @@ survw_effectsize(
 Effect size for overall survival
 }
 \description{
-The function `survw_effectsize` calculates the effect size  according to the information on responders and non-responders.
+The function `survw_effectsize` calculates the effect size in terms of the difference of restricted mean survival times (RMST) according to the information on responders and non-responders.
 }
 \author{
 Marta Bofill Roig

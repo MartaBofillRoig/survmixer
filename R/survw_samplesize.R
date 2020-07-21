@@ -4,12 +4,10 @@
 #'
 #' @param ascale0_r scale parameter for the Weibull distribution in the control group for responders
 #' @param ascale0_nr scale parameter for the Weibull distribution in the control group for non-responders
-#' @param delta_p effect size for the response rate
-#' @param p0 event rate for the response
-#' @param bshape0 shape parameter for the Weibull distribution in the control group
-#' @param bshape1 shape parameter for the Weibull distribution in the intervention group
 #' @param ascale1_r scale parameter for the Weibull distribution in the intervention group for responders
 #' @param ascale1_nr scale parameter for the Weibull distribution in the intervention group for non-responders
+#' @param delta_p effect size for the response rate
+#' @param p0 event rate for the response
 #' @param m0_r survival mean for responders in the control group
 #' @param m0_nr survival mean for non-responders in the control group
 #' @param diffm_r difference in survival means between groups for responders
@@ -22,6 +20,8 @@
 #' @param Delta_nr RMST difference between intervention and control groups for non-responders
 #' @param ascale_cens distributional parameter for the exponential distribution for the censoring
 #' @param tau follow-up
+#' @param bshape0 shape parameter for the Weibull distribution in the control group
+#' @param bshape1 shape parameter for the Weibull distribution in the intervention group
 #' @param alpha type I error
 #' @param beta type II error
 #'
@@ -30,11 +30,12 @@
 #' @return Sample size for overall survival
 #' @author Marta Bofill Roig
 
-survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1,ascale1_r,ascale1_nr,
+survw_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p0,
                              m0_r, m0_nr, diffm_r, diffm_nr,
                              S0_r, S0_nr, diffS_r, diffS_nr,
                              Delta_r, Delta_nr,
-                             ascale_cens,tau,alpha=0.025,beta=0.2,
+                             ascale_cens,tau,
+                             bshape0=1,bshape1=1,alpha=0.025,beta=0.2,
                              ss_strategy=0){
 
   z_alpha <- qnorm(1-alpha,0,1)
@@ -72,8 +73,8 @@ survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1
     ascale0_nr = param_scale(s=S0_nr,t=tau,shape=bshape0)
 
     if(beta0==1 && beta1==1){
-      ascale1_r= scale1_taylorf(ascale0=ascale0_r,Delta=Delta_r,tau=tau)
-      ascale1_nr= scale1_taylorf(ascale0=ascale0_nr,Delta=Delta_nr,tau=tau)
+      ascale1_r = scale1_taylorf(ascale0=ascale0_r,Delta=Delta_r,tau=tau)
+      ascale1_nr = scale1_taylorf(ascale0=ascale0_nr,Delta=Delta_nr,tau=tau)
     }
   }
 
