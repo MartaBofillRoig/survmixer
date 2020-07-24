@@ -18,7 +18,7 @@ library(ggplot2)
 
 # param_scale: returns the value of the scale parameter a given the survival (s) at time t
 param_scale <- function(s,t,shape=1){
-  scale = -t/((log(s))^(1/shape))
+  scale = t/((-log(s))^(1/shape))
   return(scale)
 }
 

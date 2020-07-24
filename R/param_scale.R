@@ -4,8 +4,8 @@
 #'
 #'
 #' @param t time at which the survival distribution is evaluated
-#' @param s survival rate at time t 
-#' @param shape shape parameter for the Weibull distribution 
+#' @param s survival rate at time t
+#' @param shape shape parameter for the Weibull distribution
 #'
 #'
 #' @export
@@ -15,11 +15,11 @@
 #' @author Marta Bofill Roig
 #'
 #'
-#' 
+#'
 
 # param_scale: returns the value of the scale parameter a given the survival (s) at time t
 param_scale <- function(s,t,shape=1){
-  scale = -t/((log(s))^(1/shape))
+  scale = t/((-log(s))^(1/shape))
   return(scale)
 }
 

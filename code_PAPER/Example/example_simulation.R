@@ -18,7 +18,7 @@ library(ggplot2)
 
 # param_scale: returns the value of the scale parameter a given the survival (s) at time t
 param_scale <- function(s,t,shape=1){
-  scale = -t/((log(s))^(1/shape))
+  scale = t/((-log(s))^(1/shape))
   return(scale)
 }
 
@@ -64,7 +64,7 @@ source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulat
 # library(xlsx)
 
 set.seed(1452)
-# set.seed(2020)
+
 
 alpha=0.05
 beta=0.2
@@ -104,7 +104,7 @@ power_lr <- sum(replicate(nsim,  fun_simtest_LR(n0=n/2,n1=n/2,
 
 (c(power_rmst,power_lr))
 
-###
+################################################################
 # Using NOAH's design
 powerNT_rmst <- sum(replicate(nsim, fun_simtest(n0=118,n1=117,
                                                 p0=p0,p1=p1,
@@ -127,8 +127,116 @@ powerNT_lr <- sum(replicate(nsim,  fun_simtest_LR(n0=118,n1=117,
 
 (c(powerNT_rmst,powerNT_lr))
 
+################################################################
+# Different censoring situations
+set.seed(2020)
+
+1-survw_f(t=5,ascale=5,bshape=1)
+1-survw_f(t=5,ascale=7,bshape=1)
+1-survw_f(t=5,ascale=10,bshape=1)
+
+ascale_cens1=5
+ascale_cens2=10
+
+(n= survw_samplesize(ascale0_r=wscale0_r, ascale0_nr=wscale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=wscale1_r,
+                     ascale1_nr=wscale1_nr,
+                     ascale_cens = ascale_cens1,
+                     tau=5, alpha=0.05, beta=0.2))
 
 
+power_rmst1 <- sum(replicate(nsim, fun_simtest(n0=n/2,n1=n/2,
+                                              p0=p0,p1=p1,
+                                              bshape0=1,bshape1=1,
+                                              ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                              ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                              # ascale_cens=ascale_c,
+                                              ascale_cens=ascale_cens1,
+                                              tau=5,truncated=T)) > z_alpha)/nsim
+
+power_lr1 <- sum(replicate(nsim,  fun_simtest_LR(n0=n/2,n1=n/2,
+                                                p0=p0,p1=p1,
+                                                bshape0=1,bshape1=1,
+                                                ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                # ascale_cens=ascale_c,
+                                                ascale_cens=ascale_cens1,
+                                                tau=5,truncated=T)) > q_chi)/nsim
+
+
+##
+
+(n= survw_samplesize(ascale0_r=wscale0_r, ascale0_nr=wscale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=wscale1_r,
+                     ascale1_nr=wscale1_nr,
+                     # ascale_cens = ascale_c,
+                     ascale_cens = ascale_cens2,
+                     tau=5, alpha=0.05, beta=0.2))
+
+
+power_rmst2 <- sum(replicate(nsim, fun_simtest(n0=n/2,n1=n/2,
+                                              p0=p0,p1=p1,
+                                              bshape0=1,bshape1=1,
+                                              ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                              ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                              # ascale_cens=ascale_c,
+                                              ascale_cens=ascale_cens2,
+                                              tau=5,truncated=T)) > z_alpha)/nsim
+
+power_lr2 <- sum(replicate(nsim,  fun_simtest_LR(n0=n/2,n1=n/2,
+                                                p0=p0,p1=p1,
+                                                bshape0=1,bshape1=1,
+                                                ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                # ascale_cens=ascale_c,
+                                                ascale_cens=ascale_cens2,
+                                                tau=5,truncated=T)) > q_chi)/nsim
+
+
+list(power_rmst=power_rmst,power_lr=power_lr,power_rmst1=power_rmst1,power_lr1=power_lr1,power_rmst2=power_rmst2,power_lr2=power_lr2)
+
+
+
+
+# Simulations under different censoring situations (NOAH Study)
+powerNT_rmst1 <- sum(replicate(nsim, fun_simtest(n0=118,n1=117,
+                                                p0=p0,p1=p1,
+                                                bshape0=1,bshape1=1,
+                                                ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                # ascale_cens=ascale_c,
+                                                ascale_cens=ascale_cens1,
+                                                tau=3,truncated=T)) > z_alpha)/nsim
+
+powerNT_lr1 <- sum(replicate(nsim,  fun_simtest_LR(n0=118,n1=117,
+                                                  p0=p0,p1=p1,
+                                                  bshape0=1,bshape1=1,
+                                                  ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                  ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                  # ascale_cens=ascale_c,
+                                                  ascale_cens=ascale_cens1,
+                                                  tau=3,truncated=T)) > q_chi)/nsim
+
+
+##
+powerNT_rmst2 <- sum(replicate(nsim, fun_simtest(n0=118,n1=117,
+                                                p0=p0,p1=p1,
+                                                bshape0=1,bshape1=1,
+                                                ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                # ascale_cens=ascale_c,
+                                                ascale_cens=ascale_cens2,
+                                                tau=3,truncated=T)) > z_alpha)/nsim
+
+powerNT_lr2 <- sum(replicate(nsim,  fun_simtest_LR(n0=118,n1=117,
+                                                  p0=p0,p1=p1,
+                                                  bshape0=1,bshape1=1,
+                                                  ascale0_r=wscale0_r,ascale1_r=wscale1_r,
+                                                  ascale0_nr=wscale0_nr,ascale1_nr=wscale1_nr,
+                                                  # ascale_cens=ascale_c,
+                                                  ascale_cens=ascale_cens2,
+                                                  tau=3,truncated=T)) > q_chi)/nsim
+
+
+list(powerNT_rmst=powerNT_rmst,powerNT_lr=powerNT_lr,powerNT_rmst1=powerNT_rmst1,powerNT_lr1=powerNT_lr1,powerNT_rmst2=powerNT_rmst2,powerNT_lr2=powerNT_lr2)
 
 
 ################################################################
