@@ -6,7 +6,8 @@
 rm(list = ls())
 setwd("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Example")
 source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/Functions.R')
-
+source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/R/survm_effectsize.R')
+source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/R/survm_samplesize.R')
 library(ggplot2)
 
 ################################################################
@@ -43,6 +44,8 @@ wscale0_r = param_scale(s=s0_r, t=5)
 wscale1_nr = param_scale(s=s1_nr, t=5)
 wscale0_nr = param_scale(s=s0_nr, t=5)
 
+wscale1_nr=wscale0_nr
+
 # Censoring distribution
 # mean0_nr = meanw_f(ascale=wscale0_nr,bshape=1)
 # ascale_c = 2*mean0_nr
@@ -76,12 +79,13 @@ q_chi=qchisq(1-alpha, df=1)
 nsim=10000
 
 # Using our design
-(n= survw_samplesize(ascale0_r=wscale0_r, ascale0_nr=wscale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=wscale1_r,
-                     ascale1_nr=wscale1_nr,
-                     # ascale_cens = ascale_c,
-                     ascale_cens = 7,
-                     tau=5, alpha=0.05, beta=0.2))
+# (n= survw_samplesize(ascale0_r=wscale0_r, ascale0_nr=wscale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=wscale1_r,
+#                      ascale1_nr=wscale1_nr,
+#                      # ascale_cens = ascale_c,
+#                      ascale_cens = 7,
+#                      tau=5, alpha=0.05, beta=0.2))
 
+n=survm_samplesize(S0_r=s0_r, S0_nr=s0_nr, diffS_r=s1_r-s0_r, diffS_nr=0, delta_p=p1-p0, p0=p0, ascale_cens = 7, tau=5, alpha=0.05, beta=0.2, set_param=2)$Value[1]
 
 power_rmst <- sum(replicate(nsim, fun_simtest(n0=n/2,n1=n/2,
                                               p0=p0,p1=p1,

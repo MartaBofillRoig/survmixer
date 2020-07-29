@@ -1,6 +1,6 @@
 #' Sample size calculation for mixture survival distributions
 #'
-#' @description The function `survw_samplesize` calculates the sample size according to the distributional parameters of the responders and non-responders.
+#' @description The function `survm_samplesize` calculates the sample size according to the distributional parameters of the responders and non-responders.
 #'
 #' @param ascale0_r scale parameter for the Weibull distribution in the control group for responders
 #' @param ascale0_nr scale parameter for the Weibull distribution in the control group for non-responders
@@ -24,26 +24,26 @@
 #' @param bshape1 shape parameter for the Weibull distribution in the intervention group
 #' @param alpha type I error
 #' @param beta type II error
-#' @param ss_strategy Sample size strategy to be used.
+#' @param set_param Set of parameters to be used.
 #'
 #' @export
 #'
 #' @return Sample size for overall survival
 #' @author Marta Bofill Roig
 
-survw_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p0,
+survm_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p0,
                              m0_r, m0_nr, diffm_r, diffm_nr,
                              S0_r, S0_nr, diffS_r, diffS_nr,
                              Delta_r, Delta_nr,
                              ascale_cens,tau,
                              bshape0=1,bshape1=1,alpha=0.025,beta=0.2,
-                             ss_strategy=0){
+                             set_param=0){
 
   z_alpha <- qnorm(1-alpha,0,1)
   z_beta <-  qnorm(1-beta,0,1)
   p1 = delta_p +  p0
 
-  if(ss_strategy==1){
+  if(set_param==1){
 
     m1_r = diffm_r+m0_r
     m1_nr = diffm_nr+m0_nr
@@ -56,7 +56,7 @@ survw_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p
 
   }
 
-  if(ss_strategy==2){
+  if(set_param==2){
 
     S1_r = diffS_r+ S0_r
     S1_nr = diffS_nr + S0_nr
@@ -68,24 +68,29 @@ survw_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p
 
   }
 
-  if(ss_strategy==3){
+  if(set_param==3){
 
     ascale0_r = param_scale(s=S0_r,t=tau,shape=bshape0)
     ascale0_nr = param_scale(s=S0_nr,t=tau,shape=bshape0)
 
-    if(beta0==1 && beta1==1){
-      ascale1_r = scale1_taylorf(ascale0=ascale0_r,Delta=Delta_r,tau=tau)
-      ascale1_nr = scale1_taylorf(ascale0=ascale0_nr,Delta=Delta_nr,tau=tau)
+    if(bshape0==1 && bshape1==1){
+      ascale1_r = scale1_taylorf(ascale0=ascale0_r,Delta=Delta_r,tau=tau)[2]
+      ascale1_nr = scale1_taylorf(ascale0=ascale0_nr,Delta=Delta_nr,tau=tau)[2]
     }
   }
 
-  os_effect = survw_effectsize(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,tau)
+  os_effect = survm_effectsize(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,tau)$Value[1]
 
   var0 <- var_f(ascale_r=ascale0_r,ascale_nr=ascale0_nr,tau=tau,bshape=bshape0,ascale_cens=ascale_cens,p=p0)
   var1 <- var_f(ascale_r=ascale1_r,ascale_nr=ascale1_nr,tau=tau,bshape=bshape1,ascale_cens=ascale_cens,p=p1)
   ss = ((z_alpha+z_beta)/(os_effect))^2*(var0 + var1)/0.5
 
-  return(ss)
+  # output <- list(samplesize=ss,effectsize=os_effect)
+
+  output <- data.frame(Parameter=c("Sample size","RMST difference"),
+                   Value=c(ss, os_effect))
+
+  return(output)
 }
 
 ##################################################################################

@@ -6,6 +6,8 @@
 rm(list = ls())
 setwd("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Example")
 source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/Functions.R')
+source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/R/survm_effectsize.R')
+source('C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/R/survm_samplesize.R')
 
 library(ggplot2)
 
@@ -24,20 +26,20 @@ param_scale <- function(s,t,shape=1){
 
 # The function `survw_samplesize` calculates the sample size according to the distributional parameters of the responders and non-responders, also returns the effect size and the variances in each group.
 #
-survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,ascale_cens,tau,alpha=0.025,beta=0.2){
-
-  z_alpha <- qnorm(1-alpha,0,1)
-  z_beta <-  qnorm(1-beta,0,1)
-  p1 = delta_p +  p0
-
-  os_effect = survw_effectsize(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,tau)
-
-  var0 <- var_f(ascale_r=ascale0_r,ascale_nr=ascale0_nr,tau=tau,bshape=bshape0,ascale_cens=ascale_cens,p=p0)
-  var1 <- var_f(ascale_r=ascale1_r,ascale_nr=ascale1_nr,tau=tau,bshape=bshape1,ascale_cens=ascale_cens,p=p1)
-  ss = ((z_alpha+z_beta)/(os_effect))^2*(var0 + var1)/0.5
-
-  return(list(samplesize=ss,effectsize=os_effect,var0=var0,var1=var1))
-}
+# survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,ascale_cens,tau,alpha=0.025,beta=0.2){
+#
+#   z_alpha <- qnorm(1-alpha,0,1)
+#   z_beta <-  qnorm(1-beta,0,1)
+#   p1 = delta_p +  p0
+#
+#   os_effect = survw_effectsize(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,tau)
+#
+#   var0 <- var_f(ascale_r=ascale0_r,ascale_nr=ascale0_nr,tau=tau,bshape=bshape0,ascale_cens=ascale_cens,p=p0)
+#   var1 <- var_f(ascale_r=ascale1_r,ascale_nr=ascale1_nr,tau=tau,bshape=bshape1,ascale_cens=ascale_cens,p=p1)
+#   ss = ((z_alpha+z_beta)/(os_effect))^2*(var0 + var1)/0.5
+#
+#   return(list(samplesize=ss,effectsize=os_effect,var0=var0,var1=var1))
+# }
 
 ################################################################
 # From Figure 3: Subgroup analysis for event-free survival
@@ -62,6 +64,8 @@ HR1 = (1/ascale1_r)/(1/ascale1_nr)
 
 list(HR_r=HR_r,HR_nr=HR_nr,HR1=HR1,HR0=HR0)
 
+# Since ascale1_nr<ascale0_nr, we assume that both are equal for a more plausible design
+ascale1_nr=ascale0_nr
 
 ################################################################
 # Means
@@ -115,15 +119,40 @@ survmixture_f(t=5,ascale_r=ascale0_r, ascale_nr=ascale0_nr, bshape=1, p=p0)
 survmixture_f(t=5,ascale_r=ascale1_r, ascale_nr=ascale1_nr, bshape=1, p=p1)
 
 ################################################################
+# TRIAL DESIGN
 # Overall 5-year event-free survival
+################################################################
 
-# original design
-survw_effectsize(ascale0_r=ascale0_r,ascale0_nr=ascale0_nr,delta_p=p1-p0,p0=p0,bshape0=1,bshape1=1,ascale1_r=ascale1_r,ascale1_nr=ascale1_nr,tau=5)
+survm_effectsize(ascale0_r=ascale0_r,ascale0_nr=ascale0_nr,delta_p=p1-p0,p0=p0,ascale1_r=ascale1_r,ascale1_nr=ascale1_nr,tau=5)
 
-n= survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=ascale1_r,
-                    ascale1_nr=ascale1_nr, ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)
+# survm_effectsize(ascale0_r=8.363484,ascale0_nr=5.607908,delta_p=0.1897001,p0=0.1949153,ascale1_r=35.90353,ascale1_nr=5.607908,tau=5)
+## Parameter     Value
+## 1                RMST difference 0.4339455
+## 2     RMST difference responders 0.9038914
+## 3 RMST difference non-responders 0.0000000
+## 4            Response difference 0.1897001
+
+
+n= survm_samplesize(S0_r=s0_r, S0_nr=s0_nr, diffS_r=s1_r-s0_r, diffS_nr=0, delta_p=p1-p0, p0=p0, ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2, set_param=2)
 (n)
 
+# survm_samplesize(S0_r=0.55, S0_nr=0.41, diffS_r=0.32, diffS_nr=0, delta_p=0.1897001,p0=0.1949153, ascale_cens = 7, tau=5, alpha=0.05, beta=0.2, set_param=2)
+## Parameter       Value
+## 1     Sample size 465.9752987
+## 2 RMST difference   0.4339455
+
+##  Using different parametrizations
+# n_ss0= survm_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, ascale1_r=ascale1_r, ascale1_nr=ascale1_nr, ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)
+# (n_ss0)
+
+##  Taylor approx
+# survm_samplesize(Delta_r=Delta_r, Delta_nr=Delta_nr,  S0_r=s0_r, S0_nr=s0_nr, delta_p=p1-p0, p0=p0, ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2, set_param=3)
+
+################################################################
+# DISCUSSION CASES (not included in the paper)
+################################################################
+
+# We explore how much the effect size and  sample size vary with respect to the different design cases discussed in Section
 # case III
 rmstw_f(ascale=ascale1_nr,bshape=1,tau=5) - rmstw_f(ascale=ascale1_nr,bshape=1,tau=5)
 survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale1_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=ascale1_r,
@@ -134,39 +163,11 @@ rmstw_f(ascale=ascale1_nr,bshape=1,tau=5) - rmstw_f(ascale=ascale1_nr-0.5,bshape
 survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale1_nr-0.5, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=ascale1_r,
                  ascale1_nr=ascale1_nr, ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)
 
+
 ################################################################
-# Plot sample size
+# PLOTS
+################################################################
 
-ascale1_nr_vector = c(ascale1_nr,6,7,8,ascale1_nr*2)
-
-fun.1 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[1], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
-fun.2 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[2], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
-fun.3 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[3], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
-fun.4 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[4], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
-fun.5 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[5], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
-
-ascale1_r_vector = seq(15,40,0.01)
-
-samplesize_vector1 <- sapply(ascale1_r_vector,fun.1)
-samplesize_vector2 <- sapply(ascale1_r_vector,fun.2)
-samplesize_vector3 <- sapply(ascale1_r_vector,fun.3)
-samplesize_vector4 <- sapply(ascale1_r_vector,fun.4)
-samplesize_vector5 <- sapply(ascale1_r_vector,fun.5)
-
-
-dataset = data.frame(ascale1_r_vector=c(ascale1_r_vector,ascale1_r_vector,ascale1_r_vector,ascale1_r_vector,ascale1_r_vector),
-                     samplesize_vector=c(samplesize_vector1,samplesize_vector2,samplesize_vector3,samplesize_vector4,samplesize_vector5),
-                     ascale1_nr_vector=c(rep(ascale1_nr_vector[1],length(ascale1_r_vector)),
-                                         rep(ascale1_nr_vector[2],length(ascale1_r_vector)),
-                                         rep(ascale1_nr_vector[3],length(ascale1_r_vector)),
-                                         rep(ascale1_nr_vector[4],length(ascale1_r_vector)),
-                                         rep(ascale1_nr_vector[5],length(ascale1_r_vector))
-                                         )
-)
-
-windows(width = 8, height = 8)
-ggplot(dataset,aes(x=ascale1_r_vector,y=ascale1_r_vector,col=as.factor(round(ascale1_nr_vector,2)))) + geom_point(aes(ascale1_r_vector,samplesize_vector))  +   geom_vline(xintercept = ascale1_r,linetype="dashed") +guides(col=guide_legend(title='Survival mean for non-responders in trastuzumab group', title.position = "top", title.theme = element_text(size=10))) + xlab('Survival mean for responders in trastuzumab group') + ylab('Sample size')  + theme(legend.position="bottom", axis.text=element_text(size=12), axis.title=element_text(size=12))
-# axis.title=element_text(size=10,face="bold"))
 
 ################################################################
 ################################################################
@@ -299,4 +300,42 @@ gghr
 
 windows(width = 12, height = 12)
 cowplot::plot_grid(ggf, gghr, ggr, ggnr, nrow=2)
+
+
+
+
+################################################################
+# Plot sample size  (not included in the paper)
+################################################################
+
+ascale1_nr_vector = c(ascale1_nr,6,7,8,ascale1_nr*2)
+
+fun.1 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[1], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
+fun.2 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[2], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
+fun.3 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[3], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
+fun.4 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[4], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
+fun.5 <- function(x) as.numeric(survw_samplesize(ascale0_r=ascale0_r, ascale0_nr=ascale0_nr, delta_p=p1-p0, p0=p0, bshape0=1, bshape1=1, ascale1_r=x, ascale1_nr=ascale1_nr_vector[5], ascale_cens = ascale_c, tau=5, alpha=0.05, beta=0.2)[1])
+
+ascale1_r_vector = seq(15,40,0.01)
+
+samplesize_vector1 <- sapply(ascale1_r_vector,fun.1)
+samplesize_vector2 <- sapply(ascale1_r_vector,fun.2)
+samplesize_vector3 <- sapply(ascale1_r_vector,fun.3)
+samplesize_vector4 <- sapply(ascale1_r_vector,fun.4)
+samplesize_vector5 <- sapply(ascale1_r_vector,fun.5)
+
+
+dataset = data.frame(ascale1_r_vector=c(ascale1_r_vector,ascale1_r_vector,ascale1_r_vector,ascale1_r_vector,ascale1_r_vector),
+                     samplesize_vector=c(samplesize_vector1,samplesize_vector2,samplesize_vector3,samplesize_vector4,samplesize_vector5),
+                     ascale1_nr_vector=c(rep(ascale1_nr_vector[1],length(ascale1_r_vector)),
+                                         rep(ascale1_nr_vector[2],length(ascale1_r_vector)),
+                                         rep(ascale1_nr_vector[3],length(ascale1_r_vector)),
+                                         rep(ascale1_nr_vector[4],length(ascale1_r_vector)),
+                                         rep(ascale1_nr_vector[5],length(ascale1_r_vector))
+                     )
+)
+
+windows(width = 8, height = 8)
+ggplot(dataset,aes(x=ascale1_r_vector,y=ascale1_r_vector,col=as.factor(round(ascale1_nr_vector,2)))) + geom_point(aes(ascale1_r_vector,samplesize_vector))  +   geom_vline(xintercept = ascale1_r,linetype="dashed") +guides(col=guide_legend(title='Survival mean for non-responders in trastuzumab group', title.position = "top", title.theme = element_text(size=10))) + xlab('Survival mean for responders in trastuzumab group') + ylab('Sample size')  + theme(legend.position="bottom", axis.text=element_text(size=12), axis.title=element_text(size=12))
+# axis.title=element_text(size=10,face="bold"))
 

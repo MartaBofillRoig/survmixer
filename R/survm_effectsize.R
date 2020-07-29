@@ -1,6 +1,6 @@
 #' Effect size calculation for mixture survival distributions
 #'
-#' @description The function `survw_effectsize` calculates the effect size in terms of the difference of restricted mean survival times (RMST) according to the information on responders and non-responders.
+#' @description The function `survm_effectsize` calculates the effect size in terms of the difference of restricted mean survival times (RMST) according to the information on responders and non-responders.
 #'
 #' @param ascale0_r scale parameter for the Weibull distribution in the control group for responders
 #' @param ascale0_nr scale parameter for the Weibull distribution in the control group for non-responders
@@ -22,7 +22,7 @@
 #' @return Effect size for overall survival
 #' @author Marta Bofill Roig
 
-survw_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,tau,
+survm_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1,ascale1_r,ascale1_nr,tau,
                              Delta_r=NULL, Delta_0=NULL, Delta_nr=NULL, anticipated_effects=FALSE){
 
   if(anticipated_effects == TRUE){
@@ -41,8 +41,13 @@ survw_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,asc
     os_effect = (p0 + delta_p)*Delta_r + (1-p0-delta_p)*Delta_nr + delta_p*Delta_0
   }
 
+  # output <- data.frame(Parameter=c("RMST difference","RMST difference responders","RMST difference non-responders","Response difference"),
+  #                      Value=accounting(c(os_effect,Delta_r,Delta_nr,delta_p)))
 
-  return(os_effect)
+  output <- data.frame(Parameter=c("RMST difference","RMST difference responders","RMST difference non-responders","Response difference"),
+                       Value=c(os_effect,Delta_r,Delta_nr,delta_p))
+
+  return(output)
 }
 
 ##################################################################################
