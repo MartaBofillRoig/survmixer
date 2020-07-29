@@ -19,7 +19,7 @@
 #'
 #' @export
 #'
-#' @return Effect size for overall survival
+#' @return This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders
 #' @author Marta Bofill Roig
 
 survm_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1,ascale1_r,ascale1_nr,tau,

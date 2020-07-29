@@ -28,7 +28,7 @@
 #'
 #' @export
 #'
-#' @return Sample size for overall survival
+#' @return This function returns the total sample size needed and the expected effect size for overall   survival  (RMST difference between groups).
 #' @author Marta Bofill Roig
 
 survm_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p0,
