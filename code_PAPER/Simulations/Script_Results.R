@@ -57,6 +57,13 @@ annotate_figure(figure,
                 # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                 face = "bold", size = 14))
 
+windows(height = 14, width = 12)
+figure_mod <- ggarrange(p1,p2,p3,p4, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
+annotate_figure(figure_mod,
+                top = text_grob("Power and Significance level",
+                                # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
+                                face = "bold", size = 14))
+
 ############
 # Sample size and effect size
 

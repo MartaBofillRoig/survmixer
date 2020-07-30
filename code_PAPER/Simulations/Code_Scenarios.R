@@ -145,13 +145,13 @@ for(i in 1:dim(inputs_scenarios)[1]){
   cases = inputs_scenarios$cases[i]
 
   p1 = inputs_scenarios$delta_p[i] +  inputs_scenarios$p0[i]
-  Delta_0 = rmstw_f(ascale=inputs_scenarios$ascale0_r[i],bet=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i]) - rmstw_f(ascale=inputs_scenarios$ascale0_nr[i],bet=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
+  Delta_0 = rmstw_f(ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i]) - rmstw_f(ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
 
-  Delta_r = rmstw_f(ascale=inputs_scenarios$ascale1_r[i],bet=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i]) - rmstw_f(ascale=inputs_scenarios$ascale0_r[i],bet=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
-  Delta_nr = rmstw_f(ascale=inputs_scenarios$ascale1_nr[i],bet=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i]) - rmstw_f(ascale=inputs_scenarios$ascale0_nr[i],bet=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
+  Delta_r = rmstw_f(ascale=inputs_scenarios$ascale1_r[i],bshape=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i]) - rmstw_f(ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
+  Delta_nr = rmstw_f(ascale=inputs_scenarios$ascale1_nr[i],bshape=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i]) - rmstw_f(ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
 
-  k_1 = p1*rmstw_f(ascale=inputs_scenarios$ascale1_r[i],bet=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i]) + (1-p1)*rmstw_f(ascale=inputs_scenarios$ascale1_nr[i],bet=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i])
-  k_0 = inputs_scenarios$p0[i]*rmstw_f(ascale=inputs_scenarios$ascale0_r[i],bet=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i]) + (1-inputs_scenarios$p0[i])*rmstw_f(ascale=inputs_scenarios$ascale0_nr[i],bet=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
+  k_1 = p1*rmstw_f(ascale=inputs_scenarios$ascale1_r[i],bshape=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i]) + (1-p1)*rmstw_f(ascale=inputs_scenarios$ascale1_nr[i],bshape=inputs_scenarios$bshape1[i],tau=inputs_scenarios$tau[i])
+  k_0 = inputs_scenarios$p0[i]*rmstw_f(ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i]) + (1-inputs_scenarios$p0[i])*rmstw_f(ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i],tau=inputs_scenarios$tau[i])
 
   os_effect = survw_effectsize(ascale0_r=inputs_scenarios$ascale0_r[i],
                                 ascale0_nr=inputs_scenarios$ascale0_nr[i],
@@ -168,10 +168,10 @@ for(i in 1:dim(inputs_scenarios)[1]){
   #                               p0=inputs_scenarios$p0[i],
   #                               Delta_r=Delta_r, Delta_0=Delta_0, Delta_nr=Delta_nr, anticipated_effects=TRUE)
 
-  mean0_r = meanw_f(ascale=inputs_scenarios$ascale0_r[i],bet=inputs_scenarios$bshape0[i])
-  mean1_r = meanw_f(ascale=inputs_scenarios$ascale1_r[i],bet=inputs_scenarios$bshape1[i])
-  mean0_nr = meanw_f(ascale=inputs_scenarios$ascale0_nr[i],bet=inputs_scenarios$bshape0[i])
-  mean1_nr = meanw_f(ascale=inputs_scenarios$ascale1_nr[i],bet=inputs_scenarios$bshape1[i])
+  mean0_r = meanw_f(ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i])
+  mean1_r = meanw_f(ascale=inputs_scenarios$ascale1_r[i],bshape=inputs_scenarios$bshape1[i])
+  mean0_nr = meanw_f(ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i])
+  mean1_nr = meanw_f(ascale=inputs_scenarios$ascale1_nr[i],bshape=inputs_scenarios$bshape1[i])
 
   ascale_cens_value = 2*mean0_nr
 
@@ -179,20 +179,20 @@ for(i in 1:dim(inputs_scenarios)[1]){
   diffmean_nr = mean1_nr - mean0_nr
   diffmean_0 = mean0_r - mean0_nr
 
-  median0_r = medianw_f(ascale=inputs_scenarios$ascale0_r[i],bet=inputs_scenarios$bshape0[i])
-  median1_r = medianw_f(ascale=inputs_scenarios$ascale1_r[i],bet=inputs_scenarios$bshape1[i])
-  median0_nr = medianw_f(ascale=inputs_scenarios$ascale0_nr[i],bet=inputs_scenarios$bshape0[i])
-  median1_nr = medianw_f(ascale=inputs_scenarios$ascale1_nr[i],bet=inputs_scenarios$bshape1[i])
+  median0_r = medianw_f(ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i])
+  median1_r = medianw_f(ascale=inputs_scenarios$ascale1_r[i],bshape=inputs_scenarios$bshape1[i])
+  median0_nr = medianw_f(ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i])
+  median1_nr = medianw_f(ascale=inputs_scenarios$ascale1_nr[i],bshape=inputs_scenarios$bshape1[i])
 
   diffmedian_r = median1_r - median0_r
   diffmedian_nr = median1_nr - median0_nr
   diffmedian_0 = median0_r - median0_nr
 
-  # var0 = var_f(ascale_r=inputs_scenarios$ascale0_r[i],ascale_nr=inputs_scenarios$ascale0_nr[i],tau=inputs_scenarios$tau[i],bet=inputs_scenarios$bshape0[i],ascale_cens=inputs_scenarios$ascale_cens[i],p=inputs_scenarios$p0[i])
-  # var1 = var_f(ascale_r=inputs_scenarios$ascale1_r[i],ascale_nr=inputs_scenarios$ascale1_nr[i],tau=inputs_scenarios$tau[i],bet=inputs_scenarios$bshape1[i],ascale_cens=inputs_scenarios$ascale_cens[i],p=p1)
+  # var0 = var_f(ascale_r=inputs_scenarios$ascale0_r[i],ascale_nr=inputs_scenarios$ascale0_nr[i],tau=inputs_scenarios$tau[i],bshape=inputs_scenarios$bshape0[i],ascale_cens=inputs_scenarios$ascale_cens[i],p=inputs_scenarios$p0[i])
+  # var1 = var_f(ascale_r=inputs_scenarios$ascale1_r[i],ascale_nr=inputs_scenarios$ascale1_nr[i],tau=inputs_scenarios$tau[i],bshape=inputs_scenarios$bshape1[i],ascale_cens=inputs_scenarios$ascale_cens[i],p=p1)
 
-  var0 = var_f(ascale_r=inputs_scenarios$ascale0_r[i],ascale_nr=inputs_scenarios$ascale0_nr[i],tau=inputs_scenarios$tau[i],bet=inputs_scenarios$bshape0[i],ascale_cens=ascale_cens_value,p=inputs_scenarios$p0[i])
-  var1 = var_f(ascale_r=inputs_scenarios$ascale1_r[i],ascale_nr=inputs_scenarios$ascale1_nr[i],tau=inputs_scenarios$tau[i],bet=inputs_scenarios$bshape1[i],ascale_cens=ascale_cens_value,p=p1)
+  var0 = var_f(ascale_r=inputs_scenarios$ascale0_r[i],ascale_nr=inputs_scenarios$ascale0_nr[i],tau=inputs_scenarios$tau[i],bshape=inputs_scenarios$bshape0[i],ascale_cens=ascale_cens_value,p=inputs_scenarios$p0[i])
+  var1 = var_f(ascale_r=inputs_scenarios$ascale1_r[i],ascale_nr=inputs_scenarios$ascale1_nr[i],tau=inputs_scenarios$tau[i],bshape=inputs_scenarios$bshape1[i],ascale_cens=ascale_cens_value,p=p1)
 
   # os_samplesize = ((z_alpha+z_beta)/(os_effect))^2*(var0 + var1)/0.5
   os_samplesize = survw_samplesize(ascale0_r=inputs_scenarios$ascale0_r[i],
@@ -206,18 +206,18 @@ for(i in 1:dim(inputs_scenarios)[1]){
                                     ascale_cens=ascale_cens_value,
                                     tau=inputs_scenarios$tau[i],alpha=alpha_error,beta=beta_error)
 
-  surv0_r_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale0_r[i],bet=inputs_scenarios$bshape0[i])
-  surv0_nr_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale0_nr[i],bet=inputs_scenarios$bshape0[i])
+  surv0_r_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i])
+  surv0_nr_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i])
 
   diffsurv0_tau =  surv0_r_tau - surv0_nr_tau
 
-  surv1_r_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale1_r[i],bet=inputs_scenarios$bshape1[i])
-  surv1_nr_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale1_nr[i],bet=inputs_scenarios$bshape1[i])
+  surv1_r_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale1_r[i],bshape=inputs_scenarios$bshape1[i])
+  surv1_nr_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale1_nr[i],bshape=inputs_scenarios$bshape1[i])
 
   diffsurv1_tau =  surv1_r_tau - surv1_nr_tau
 
-  surv0_tau = survmixture_f(t=inputs_scenarios$tau[i], ascale_r=inputs_scenarios$ascale0_r[i],ascale_nr=inputs_scenarios$ascale0_nr[i], bet=inputs_scenarios$bshape0[i], p=inputs_scenarios$p0[i])
-  surv1_tau = survmixture_f(t=inputs_scenarios$tau[i], ascale_r=inputs_scenarios$ascale1_r[i],ascale_nr=inputs_scenarios$ascale1_nr[i], bet=inputs_scenarios$bshape1[i], p=p1)
+  surv0_tau = survmixture_f(t=inputs_scenarios$tau[i], ascale_r=inputs_scenarios$ascale0_r[i],ascale_nr=inputs_scenarios$ascale0_nr[i], bshape=inputs_scenarios$bshape0[i], p=inputs_scenarios$p0[i])
+  surv1_tau = survmixture_f(t=inputs_scenarios$tau[i], ascale_r=inputs_scenarios$ascale1_r[i],ascale_nr=inputs_scenarios$ascale1_nr[i], bshape=inputs_scenarios$bshape1[i], p=p1)
 
   diffsurv_tau =  surv1_tau - surv0_tau
 
