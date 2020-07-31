@@ -62,11 +62,13 @@
 <div id="survmixer" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#survmixer" class="anchor"></a>survmixer</h1></div>
-<p>Sample size and effect size calculation for overall survival based on the response rate and the survival-by-response information.</p>
+<p>Sample size and effect size calculation for overall survival given the information on short-term binary endpoints.</p>
+<p>In this work, we consider a mixture model that relates both the survival and binary endpoints. We distinguish between patients who respond to the binary endpoint, called responders, ant those who don’t, non-responders. We use the difference of the restricted mean survival times (RMSTs) as the basis of the comparison between arms.</p>
+<p>The expected effect size (RMSTs difference) and sample size are then calculated on the basis of the response rate of the binary endpoint as well as on the survival functions for responders and non-responders in each treatment arm.</p>
 <div id="description" class="section level2">
 <h2 class="hasAnchor">
 <a href="#description" class="anchor"></a>Description</h2>
-<p>This repository contains some R functions for sample size and effect siz calculation based on a mixture distribution of responders and non-responders.</p>
+<p>This repository contains R functions for sample size and effect size calculation according to different set of parameters.</p>
 <p>The functions included in this repository are the following:</p>
 <ul>
 <li>
