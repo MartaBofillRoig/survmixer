@@ -54,7 +54,7 @@ beta_error=0.2
 ## ------------------------------------------------------------------------
 
 data <- data.frame(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-data <- rename(data,c('c(0)'='Scenario',
+data <- plyr::rename(data,c('c(0)'='Scenario',
                       X0 = 'PH',
                       X0.1 = 'tau',
                       X0.2 = 'bshape0',
@@ -103,7 +103,7 @@ data <- rename(data,c('c(0)'='Scenario',
 
 
 summary_data <- data.frame(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
-summary_data <- rename(summary_data, c('c(0)'='Scenario',
+summary_data <- plyr::rename(summary_data, c('c(0)'='Scenario',
                                        X0 =  'PH',
                                        X0.1 =  'cases',
                                        X0.2 = 'tau',
@@ -335,12 +335,7 @@ rm(i,it,
    os_samplesize,
    beta_error,alpha_error)
 
-# # save scenarios
-# write.xlsx(inputs_scenarios, file="complete_results.xls", sheetName="inputs_scenarios", col.names=TRUE)
-# write.xlsx(data, file="complete_results.xls", sheetName="complete_results", append=TRUE, col.names=TRUE)
-# write.xlsx(summary_data, file="complete_results.xls", sheetName="summary_results", append=TRUE, col.names=TRUE)
-#'
-#'
+
 #' # save scenarios
 write.xlsx(inputs_scenarios, file="scenarios/complete_scenarios.xls", sheetName="inputs_scenarios", col.names=TRUE)
 write.xlsx(data, file="scenarios/complete_scenarios.xls", sheetName="complete_results", append=TRUE, col.names=TRUE)

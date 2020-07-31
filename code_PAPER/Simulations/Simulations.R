@@ -114,7 +114,7 @@ rm(i)
 save.image("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/results_sim/RESULTS_sim.RData")
 
 # write.xlsx(): append=FALSE when we are overwriting the sheet. Otherwise use append=TRUE
-write.xlsx(data, file="scenarios/complete_scenarios.xls", sheetName="complete_results_sim", append=FALSE, col.names=TRUE)
+write.xlsx(data, file="scenarios/complete_scenarios_results.xls", sheetName="complete_results_sim", append=FALSE, col.names=TRUE)
 # write.xlsx(data, file="scenarios/complete_scenarios.xls", sheetName="complete_results_sim", append=TRUE, col.names=TRUE)
 
 #####################################################################################
