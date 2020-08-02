@@ -37,18 +37,18 @@ summary(data$os_effect)
 windows(height = 14, width = 14)
 
 p1 <- ggplot(data, aes(x=cases, y=Test_Reject,  color=cases)) +
-  geom_boxplot()  + labs(y = "Power RMST test")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+  geom_boxplot()  + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 p2 <- ggplot(data, aes(x=cases, y=Test_Reject_LR,  color=cases)) +
-  geom_boxplot()  + labs(y = "Power logrank test") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+  geom_boxplot()  + labs(y = "Power logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 diff_p12 <- ggplot(data, aes(x=cases, y=diff_power,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Power (RMST - logrank) ") #+ coord_cartesian(ylim = c(-0.1, 0.1))
+  geom_boxplot()  + labs(y = "Difference Power (RMST - logrank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
 
 p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
-  geom_boxplot() + labs(y = "Significance level RMST test")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_boxplot() + labs(y = "Significance level RMST test", x ="Settings", color ="Settings")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 p4 <- ggplot(data, aes(x=cases, y=Test_Reject_LR_size, color=cases)) +
-  geom_boxplot()+ labs(y = "Significance level logrank test") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_boxplot()+ labs(y = "Significance level logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Significance level (RMST - logrank )")+ coord_cartesian(ylim = c(-0.03, 0.03))
+  geom_boxplot()  + labs(y = "Difference Significance level (RMST - logrank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
 
 
 figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
@@ -70,11 +70,11 @@ annotate_figure(figure_mod,
 windows(height = 14, width = 14)
 
 p5 <- ggplot(data, aes(x=cases, y=os_samplesize,  color=cases)) +
-  geom_boxplot(outlier.shape = NA) + labs(y = "Sample size") #+ scale_y_continuous(limits = quantile(data$os_samplesize, c(0.1, 0.9)))
+  geom_boxplot(outlier.shape = NA) + labs(y = "Sample size", x ="Settings", color ="Settings") #+ scale_y_continuous(limits = quantile(data$os_samplesize, c(0.1, 0.9)))
 p5_bis <-  ggplot(data, aes(x=NA., y=os_samplesize, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Sample size",x = "Scenarios") +
   theme(legend.position = "none",  axis.text.x = element_blank())
 p6 <- ggplot(data, aes(x=cases, y=os_effect,  color=cases)) +
-  geom_boxplot() + labs(y = "Effect size (RMST difference)")
+  geom_boxplot() + labs(y = "Effect size (RMST difference)", x ="Settings", color ="Settings")
 p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Effect size",x = "Scenarios")+
   theme(legend.position = "none",  axis.text.x = element_blank())
 
