@@ -28,3 +28,12 @@ The functions included in this repository are the following:
 library(devtools)
 install_github("MartaBofillRoig/survmixer")
 ```
+
+## References
+
+This repository also contains the source files of the preprint:
+
+- "Design of phase III trials with long-term survival outcomes based on short-term binary results". Marta Bofill Roig, Yu Shen, Guadalupe Gómez Melis. (2020). 
+https://arxiv.org/abs/2008.12887
+
+
