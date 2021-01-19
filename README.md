@@ -23,7 +23,7 @@ The functions included in this repository are the following:
 
 ## R Package
 
-Installation:
+Installation of the R package *survmixer* from GitHub:
 
 ``` r
 # install.packages("devtools")
