@@ -1,16 +1,14 @@
 
 ##########################################################################################
 # Scenarios simulation MDA Research
-# Authors: Marta Bofill Roig, Yu Shen, Guadalupe Gómez Melis
+# Authors: Marta Bofill Roig, Guadalupe Gómez Melis
 ##########################################################################################
-
-# DESCRIPTION
-# This code creates the set of scenarios for the simulation. In this case, we assume  higher
-# numbers of patients assigned to active treatment. In particular, we consider 2:1 ratio trials.
 
 # Preparing the scenarios
 rm(list = ls())
-setwd("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Additional-Simulations")
+
+# setwd("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Sensitivity")
+setwd("C:/Users/marta.bofill/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Sensitivity")
 
 # install.packages(c("xlsx", "readxl", "knitr", "dplyr", "tidyverse", "tidyr"))
 library(xlsx)
@@ -25,12 +23,13 @@ library(tidyr)
 #'
 #' Reading the scenarios
 ## ------------------------------------------------------------------------
-inputs_scenarios <- read_excel("scenarios/inputs_scenarios.xls")
+inputs_scenarios <- read_excel("scenarios/inputs_scenarios_exp.xls")
 # sum(duplicated(inputs_scenarios))
 
 inputs_scenarios <- inputs_scenarios[!duplicated(inputs_scenarios), ]
 p0 = c(0.1,0.3)
-delta_p =c(0.1,0.3)
+# delta_p =c(0.1,0.3)
+delta_p =c(0.1)
 inputs_scenarios = expand_grid(inputs_scenarios,p0,delta_p)
 
 
@@ -208,8 +207,7 @@ for(i in 1:dim(inputs_scenarios)[1]){
                                     ascale1_r=inputs_scenarios$ascale1_r[i],
                                     ascale1_nr=inputs_scenarios$ascale1_nr[i],
                                     ascale_cens=ascale_cens_value,
-                                    tau=inputs_scenarios$tau[i],
-                                    all_ratio=1/3,alpha=alpha_error,beta=beta_error)
+                                    tau=inputs_scenarios$tau[i],alpha=alpha_error,beta=beta_error)
 
   surv0_r_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale0_r[i],bshape=inputs_scenarios$bshape0[i])
   surv0_nr_tau = survw_f(t=inputs_scenarios$tau[i],ascale=inputs_scenarios$ascale0_nr[i],bshape=inputs_scenarios$bshape0[i])

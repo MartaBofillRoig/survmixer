@@ -12,7 +12,7 @@
 #' # html_document
 #' ---
 #' 
-## ----setup, include=FALSE--------------------------------------------------------------------------------------------------------------------
+## ----setup, include=FALSE----------------------------------------------------------------------------------------------------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 # setwd("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations")
 
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #' ## Preamble 
 #' 
 #' Required packages:
-## ---- warning=FALSE, message=FALSE-----------------------------------------------------------------------------------------------------------
+## ---- warning=FALSE, message=FALSE-------------------------------------------------------------------------------------------------------------------------------------
 library(knitr) # purl function  
 library(pracma)
 
@@ -41,14 +41,14 @@ library(pracma)
 #' 
 #' 
 #' The function `survw_f` computes the Weibull survival function. 
-## ----survexp---------------------------------------------------------------------------------------------------------------------------------
+## ----survexp-----------------------------------------------------------------------------------------------------------------------------------------------------------
 survw_f <- function(t,ascale,bshape){
   return(exp(-(t/ascale)^bshape))
 } 
 
 #' 
 #' The function `rmstw_f` computes the restricted mean survival times (RMST) according to the Weibull survival function. 
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 rmstw_f <- function(ascale,bshape,tau,low=0){ 
   r <- integrate(survw_f, lower = low, upper = tau, ascale, bshape)$value
   return(r)
@@ -58,14 +58,14 @@ rmstw_f <- function(ascale,bshape,tau,low=0){
 #' 
 #' 
 #' The function `survw_derivf` computes the derivative of the survival distribution  `survw_f`.
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 survw_derivf <- function(t,ascale,bshape=1){
   return(-bshape*(t/ascale)^bshape*exp(-(t/ascale)^bshape)/t)
 } 
 
 #' 
 #' The functions `meanw_f` and `medianw_f` calculate the mean and median for Weibull distributions, respectively.
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 medianw_f <- function(ascale,bshape){
   median = ascale*(log(2)^(1/bshape))
   return(median)
@@ -73,7 +73,7 @@ medianw_f <- function(ascale,bshape){
 
 #' 
 #' 
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 meanw_f <- function(ascale,bshape){
   mean = ascale*gamma(1+1/bshape)
   return(mean)
@@ -86,7 +86,7 @@ meanw_f <- function(ascale,bshape){
 #' 
 #' 
 #' The function `survmixture_f` computes the survival distribution as a mixture of  of responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.
-## ----survmixt--------------------------------------------------------------------------------------------------------------------------------
+## ----survmixt----------------------------------------------------------------------------------------------------------------------------------------------------------
 survmixture_f <- function(t,ascale_r, ascale_nr, bshape=1, p){
   s <- survw_f(t,ascale_r,bshape)*p + survw_f(t,ascale_nr,bshape)*(1-p)
   return(s)
@@ -97,7 +97,7 @@ survmixture_f <- function(t,ascale_r, ascale_nr, bshape=1, p){
 #' 
 #' The following three functions are used to calculate the variance of th difference of two RMSTs. `survw_integratef` is used for the integrations; `inside_var` calculates the expression inside the integral; finally, `var_f` computes the variance.
 #' 
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 survw_integratef <- function(t,tau, ascale,bshape){
  int <- integrate(survw_f,lower=t, upper=tau,ascale,bshape)$value
  return(int) 
@@ -105,7 +105,7 @@ survw_integratef <- function(t,tau, ascale,bshape){
 
 #' 
 #' 
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 inside_var <- function(t,ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
   
   num = p*sapply(t,survw_integratef,ascale=ascale_r,bshape=bshape,tau=tau)+(1-p)*sapply(t,survw_integratef,ascale=ascale_nr,bshape=bshape,tau=tau)
@@ -118,7 +118,7 @@ inside_var <- function(t,ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
 }
 
 #' 
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 var_f <- function(ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
   integrate(inside_var,lower=0,upper=tau,ascale_r=ascale_r, ascale_nr= ascale_nr,tau=tau,bshape=bshape,ascale_cens=ascale_cens,p=p)$value
 }
@@ -128,7 +128,7 @@ var_f <- function(ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
 #' ## Effect size and Sample size calculation
 #' 
 #' The function `survw_effectsize` calculates the effect size according to the distributional parameters of the responders and non-responders.
-## --------------------------------------------------------------------------------------------------------------------------------------------
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 survw_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,tau, 
                              Delta_r=NULL, Delta_0=NULL, Delta_nr=NULL, anticipated_effects=FALSE){ 
@@ -156,9 +156,9 @@ survw_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,asc
 #' 
 #' 
 #' 
-#' The function `survw_samplesize` calculates the sample size according to the distributional parameters of the responders and non-responders. The function includes the allocation ratio option.
-## --------------------------------------------------------------------------------------------------------------------------------------------
-survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,ascale_cens,tau,all_ratio=0.5,alpha=0.025,beta=0.2){ 
+#' The function `survw_samplesize` calculates the sample size according to the distributional parameters of the responders and non-responders.
+## ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,ascale1_r,ascale1_nr,ascale_cens,tau,alpha=0.025,beta=0.2){ 
 
   z_alpha <- qnorm(1-alpha,0,1)  
   z_beta <-  qnorm(1-beta,0,1)
@@ -168,7 +168,7 @@ survw_samplesize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0,bshape1,asc
   
   var0 <- var_f(ascale_r=ascale0_r,ascale_nr=ascale0_nr,tau=tau,bshape=bshape0,ascale_cens=ascale_cens,p=p0)
   var1 <- var_f(ascale_r=ascale1_r,ascale_nr=ascale1_nr,tau=tau,bshape=bshape1,ascale_cens=ascale_cens,p=p1)
-  ss = ((z_alpha+z_beta)/(os_effect))^2*(var0/all_ratio + var1/(1-all_ratio))
+  ss = ((z_alpha+z_beta)/(os_effect))^2*(var0 + var1)/0.5
   
  return(ss) 
 }

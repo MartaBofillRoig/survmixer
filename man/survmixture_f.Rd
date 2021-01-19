@@ -18,11 +18,14 @@ survmixture_f(t, ascale_r, ascale_nr, bshape = 1, p)
 \item{p}{event rate for the response}
 }
 \value{
-Mixture survival function evaluated at t
+This function returns the survival function evaluated at t based on a  mixture model of  responders and non-responders.
 }
 \description{
-The function `survmixture_f` computes the survival distribution as a mixture of  of responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.
+The function `survmixture_f` computes the survival distribution as a mixture of  responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.
+}
+\references{
+Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
 }
 \author{
-Marta Bofill Roig
+Marta Bofill Roig.
 }

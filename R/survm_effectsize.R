@@ -18,13 +18,16 @@
 #'
 #'
 #' @export
+#' @import stats
 #'
-#' @return This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders
-#' @author Marta Bofill Roig
+#' @return This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders.
+#' @author Marta Bofill Roig.
+#' @references Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
 
 survm_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1,ascale1_r,ascale1_nr,tau,
                              Delta_r=NULL, Delta_0=NULL, Delta_nr=NULL, anticipated_effects=FALSE){
 
+  requireNamespace("stats")
   if(anticipated_effects == TRUE){
     os_effect = (p0 + delta_p)*Delta_r + (1-p0-delta_p)*Delta_nr + delta_p*Delta_0
   }
@@ -40,9 +43,6 @@ survm_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1
 
     os_effect = (p0 + delta_p)*Delta_r + (1-p0-delta_p)*Delta_nr + delta_p*Delta_0
   }
-
-  # output <- data.frame(Parameter=c("RMST difference","RMST difference responders","RMST difference non-responders","Response difference"),
-  #                      Value=accounting(c(os_effect,Delta_r,Delta_nr,delta_p)))
 
   output <- data.frame(Parameter=c("RMST difference","RMST difference responders","RMST difference non-responders","Response difference"),
                        Value=c(os_effect,Delta_r,Delta_nr,delta_p))

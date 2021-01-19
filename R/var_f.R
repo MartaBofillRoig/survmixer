@@ -51,6 +51,7 @@ inside_var <- function(t,ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
 #'
 #'
 var_f <- function(ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
+  requireNamespace("stats")
   integrate(inside_var,lower=0,upper=tau,ascale_r=ascale_r, ascale_nr= ascale_nr,tau=tau,bshape=bshape,ascale_cens=ascale_cens,p=p)$value
 }
 
@@ -72,6 +73,7 @@ var_f <- function(ascale_r,ascale_nr,tau,bshape,ascale_cens,p){
 #'
 #'
 survw_integratef <- function(t,tau, ascale,bshape){
+  requireNamespace("stats")
   int <- integrate(survw_f,lower=t, upper=tau,ascale,bshape)$value
   return(int)
 }

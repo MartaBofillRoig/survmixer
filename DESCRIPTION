@@ -1,6 +1,6 @@
 Package: survmixer
-Title: Design of clinical trials with survival endpoints based on binary response.
-Version: 0.0.0.9000
+Title: Design of Clinical Trials with Survival Endpoints based on Binary Response
+Version: 1.0
 Authors@R: c(person("Marta", "Bofill Roig", email = "marta.bofill.roig@upc.edu", role = c("cre","aut"), 
            comment = c(ORCID = "0000-0002-4400-7541")), 
            person("Guadalupe", "Gomez Melis", role = "ctb", comment = c(ORCID = "0000-0003-4252-4884")),
@@ -11,4 +11,6 @@ Description: Sample size and effect size calculations for survival endpoints bas
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports: 
+	stats
 RoxygenNote: 7.1.1

@@ -48,11 +48,14 @@ survm_effectsize(
 \item{anticipated_effects}{Logical parameter. If it is TRUE then the effect size is computed based on previous information on the effect sizes on response rate and survival-by-responses (that is, based on Delta_r, Delta_0, Delta_nr); otherwise is based on the distributional parameters (ascale0_r, ascale0_nr, ascale1_r, ascale1_nr, bshape0, bshape1).}
 }
 \value{
-This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders
+This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders.
 }
 \description{
 The function `survm_effectsize` calculates the effect size in terms of the difference of restricted mean survival times (RMST) according to the information on responders and non-responders.
 }
+\references{
+Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
+}
 \author{
-Marta Bofill Roig
+Marta Bofill Roig.
 }

@@ -11,9 +11,9 @@ rmstw_f(ascale, bshape, tau, low = 0)
 
 \item{bshape}{shape parameter for the Weibull distribution}
 
-\item{tau}{rmst evaluated from low to tau}
+\item{tau}{RMST evaluated from low to tau}
 
-\item{low}{rmst evaluated from low to tau}
+\item{low}{RMST evaluated from low to tau}
 }
 \value{
 rmst
