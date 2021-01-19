@@ -11,4 +11,4 @@ Description: Sample size and effect size calculations for survival endpoints bas
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
