@@ -29,7 +29,7 @@
 #'
 #' @export
 #' @import stats
-#'
+#' @example survm_samplesize(S0_r=0.55,S0_nr=0.41,diffS_r=0.32,diffS_nr=0,p0=0.19,delta_p=0.19,ascale_cens=7,tau=5,alpha=0.05,beta=0.2,set_param=2)
 #' @return This function returns the total sample size needed and the expected effect size for overall   survival  (RMST difference between groups).
 #' @author Marta Bofill Roig.
 #' @references Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
@@ -88,7 +88,7 @@ survm_samplesize <- function(ascale0_r,ascale0_nr,ascale1_r,ascale1_nr,delta_p,p
       stop("RMST difference between intervention and control groups must be a positive number")
     }
   }
-  if(set_param==4){
+  if(set_param>3||set_param<0){
     stop("The selected set of parameters is not valid")
   }
   if(tau<0){

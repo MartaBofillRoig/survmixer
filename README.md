@@ -21,7 +21,9 @@ The functions included in this repository are the following:
   - *survm_samplesize* to calculate the sample size according to the distributional parameters of the responders and non-responders. 
 
 
-## Installation
+## R Package
+
+Installation:
 
 ``` r
 # install.packages("devtools")

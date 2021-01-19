@@ -17,6 +17,20 @@
 #'
 #'
 survmixture_f <- function(t,ascale_r, ascale_nr, bshape=1, p){
+
+  if( 0 > p || p > 1){
+    stop("Response probability must be a number between 0 and 1")
+  }
+  # if(t<0){
+  #   stop("The time must be a positive number")
+  # }
+  if(ascale_r<0 || ascale_nr<0){
+    stop("Scale parameter must be a positive number")
+  }
+  if(bshape<0 ){
+    stop("Shape parameter must be a positive number")
+  }
+
   s <- survw_f(t,ascale_r,bshape)*p + survw_f(t,ascale_nr,bshape)*(1-p)
   return(s)
 }

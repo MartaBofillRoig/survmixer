@@ -19,7 +19,7 @@
 #'
 #' @export
 #' @import stats
-#'
+#' @example survm_effectsize(ascale0_r=8.37,ascale0_nr=5.61,ascale1_r=35.90,ascale1_nr=5.61,delta_p=0.19,p0=0.19,tau=5)
 #' @return This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders.
 #' @author Marta Bofill Roig.
 #' @references Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
@@ -28,6 +28,33 @@ survm_effectsize <- function(ascale0_r,ascale0_nr,delta_p,p0,bshape0=1,bshape1=1
                              Delta_r=NULL, Delta_0=NULL, Delta_nr=NULL, anticipated_effects=FALSE){
 
   requireNamespace("stats")
+
+  if( 0 > p0 || p0 > 1){
+    stop("Response probability must be a number between 0 and 1")
+  }
+  if( 0 > delta_p){
+    stop("Effect size for the response rate must be a positive number")
+  }
+  if(tau<0){
+    stop("The follow-up must be a positive number")
+  }
+  # set of parameters
+  if(anticipated_effects==FALSE){
+    if(bshape0<0 || bshape0<0){
+      stop("Shape parameter must be a positive number")
+    }else if(ascale0_r<0 || ascale0_nr<0 || ascale1_r<0 || ascale1_nr<0){
+      stop("Scale parameter must be a positive number")
+    }
+  }
+  if(anticipated_effects==TRUE){
+    if(bshape0<0 || bshape0<0){
+      stop("Shape parameter must be a positive number")
+    }else if(Delta_r<0 || Delta_nr<0 || Delta_0<0){
+      stop("RMST difference between intervention and control groups must be a positive number")
+    }
+  }
+
+  #
   if(anticipated_effects == TRUE){
     os_effect = (p0 + delta_p)*Delta_r + (1-p0-delta_p)*Delta_nr + delta_p*Delta_0
   }
