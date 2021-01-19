@@ -39,6 +39,7 @@ https://arxiv.org/abs/2008.12887
 
 Specifically, 
 
-- In the folder CODE_paper/Example, there is the source code for reproduce the illustration; and in the folder CODE_paper/Simulations, there is the code to reproduce the simulation study in the paper; 
+- In the folder CODE_paper/Example, there is the source code for reproduce the illustration; 
+- In the folder CODE_paper/Simulations, there is the code to reproduce the simulation study in the paper; 
 - In the folder CODE_paper/Additional-Simulations, there is the code to reproduce the simulation scenarios presented in the supplementary material;
 - Finally, in the folder CODE_paper/Sensitivity, there is the code to reproduce the simulation study to evaluate the performance of the sample size formula with respect to missepecifications in the model.
