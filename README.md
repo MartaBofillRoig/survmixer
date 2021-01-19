@@ -4,7 +4,7 @@ Sample size and effect size calculation for overall survival given the informati
 
 In this work, we consider a mixture model that relates both the survival
 and binary endpoints.
-We distinguish between patients who respond to the binary endpoint, called responders, ant those who don't, non-responders. 
+We distinguish between patients who respond to the binary endpoint, called responders, and those who don't, non-responders. 
 We use the difference of the restricted mean survival times (RMSTs) as the basis of the comparison between arms. 
 
 The expected effect size (RMSTs difference) and sample size are then calculated on the basis of the response rate of the binary endpoint as well as on the survival functions for responders and non-responders in each treatment arm.
