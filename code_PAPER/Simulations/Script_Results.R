@@ -10,7 +10,8 @@ load("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulatio
 library(ggplot2)
 library(gridExtra)
 library(ggpubr)
-
+library(hrbrthemes)
+library(viridis)
 
 data$cases = 4
 for(i in 1:dim(data)[1]){
@@ -30,6 +31,7 @@ data = subset(data, data$os_samplesize>100 & data$os_samplesize<5000)
 summary(data$os_samplesize)
 summary(data$os_effect)
 
+summary(data)
 
 ############
 # Boxplots alpha and power
@@ -41,13 +43,13 @@ p1 <- ggplot(data, aes(x=cases, y=Test_Reject,  color=cases)) +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 p2 <- ggplot(data, aes(x=cases, y=Test_Reject_LR,  color=cases)) +
-  geom_boxplot() +
+  geom_boxplot() + labs(y = "Power log-rank test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1)) +
   # geom_point(color="grey50") +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1))
-+ labs(y = "Power logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
++ labs(y = "Power log-rank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 diff_p12 <- ggplot(data, aes(x=cases, y=diff_power,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Power (RMST - logrank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
+  geom_boxplot()  + labs(y = "Difference Power (RMST - log-rank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
 
 p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
   geom_boxplot() +
@@ -56,9 +58,9 @@ p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
 p4 <- ggplot(data, aes(x=cases, y=Test_Reject_LR_size, color=cases)) +
   geom_boxplot() +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Significance level logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Significance level log-rank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Significance level (RMST - logrank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
+  geom_boxplot()  + labs(y = "Difference Significance level (RMST - log-rank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
 
 
 figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
@@ -117,11 +119,11 @@ par(mfrow = c(2, 2))
 p1 <- ggplot(data, aes(x=NA., y=Test_Reject, shape=cases, color=cases)) +
   geom_point(size=2)+ ylim(0.65, 0.9) + labs(y = "Power RMST test")
 p2 <- ggplot(data, aes(x=NA., y=Test_Reject_LR, shape=cases, color=cases)) +
-  geom_point(size=2)+ ylim(0.65, 0.9) + labs(y = "Power logrank test")
+  geom_point(size=2)+ ylim(0.65, 0.9) + labs(y = "Power log-rank test")
 p3 <- ggplot(data, aes(x=NA., y=Test_Reject_size  , shape=cases, color=cases)) +
   geom_point(size=2)+ ylim(0.035, 0.09) + labs(y = "Significance level RMST test")
 p4 <- ggplot(data, aes(x=NA., y=Test_Reject_LR_size, shape=cases, color=cases)) +
-  geom_point(size=2)+ ylim(0.035, 0.09) + labs(y = "Significance level logrank test")
+  geom_point(size=2)+ ylim(0.035, 0.09) + labs(y = "Significance level log-rank test")
 
 grid.arrange(p1,p2,p3,p4, ncol=2)
 
