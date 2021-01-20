@@ -33,7 +33,7 @@ all_ratio=1/3
 
 # nsim: number of simulations
 nsim=1000
-
+# c(alpha-qnorm(1-alpha/2,0,1)*sqrt(alpha*(1-alpha))/nsim,alpha+qnorm(1-alpha/2,0,1)*sqrt(alpha*(1-alpha))/nsim)
 
 #####################################################################################
 # simulation seed

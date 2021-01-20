@@ -4,13 +4,18 @@
 # Marta Bofill and Guadalupe Gómez
 ################################################################
 
+# DESCRIPTION
+# This code creates the set of scenarios for the simulation. In this case, we assume  higher
+# numbers of patients assigned to active treatment. In particular, we consider 2:1 ratio trials.
+
 rm(list = ls())
-load("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Simulations/results_sim/RESULTS_sim.RData")
+load("C:/Users/mbofi/Dropbox/C5/Scripts/GitKraken/survmixer/code_PAPER/Additional-Simulations/results_sim/RESULTS_sim.RData")
 
 library(ggplot2)
 library(gridExtra)
 library(ggpubr)
-
+library(hrbrthemes)
+library(viridis)
 
 data$cases = 4
 for(i in 1:dim(data)[1]){
@@ -37,18 +42,30 @@ summary(data$os_effect)
 windows(height = 14, width = 14)
 
 p1 <- ggplot(data, aes(x=cases, y=Test_Reject,  color=cases)) +
-  geom_boxplot()  + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="grey50", size=0.4, alpha=1)  + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 p2 <- ggplot(data, aes(x=cases, y=Test_Reject_LR,  color=cases)) +
-  geom_boxplot()  + labs(y = "Power logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Power logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 diff_p12 <- ggplot(data, aes(x=cases, y=diff_power,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Power (RMST - logrank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Difference Power (RMST - logrank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
 
 p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
-  geom_boxplot() + labs(y = "Significance level RMST test", x ="Settings", color ="Settings")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Significance level RMST test", x ="Settings", color ="Settings")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 p4 <- ggplot(data, aes(x=cases, y=Test_Reject_LR_size, color=cases)) +
-  geom_boxplot()+ labs(y = "Significance level logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="grey50", size=0.4, alpha=1)+ labs(y = "Significance level logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Significance level (RMST - logrank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Difference Significance level (RMST - logrank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
 
 
 figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
@@ -57,11 +74,12 @@ annotate_figure(figure,
                 # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                 face = "bold", size = 14))
 
+#
+
 windows(height = 14, width = 12)
 figure_mod <- ggarrange(p1,p2,p3,p4, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
 annotate_figure(figure_mod,
                 top = text_grob("Power and Significance level",
-                                # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                                 face = "bold", size = 14))
 
 ############
