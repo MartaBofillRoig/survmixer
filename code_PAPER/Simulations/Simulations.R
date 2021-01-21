@@ -28,7 +28,7 @@ q_chi=qchisq(1-alpha, df=1)
 
 # nsim: number of simulations
 nsim=1000
-
+c(alpha-qnorm(1-alpha/2,0,1)*sqrt(alpha*(1-alpha)/nsim),alpha+qnorm(1-alpha/2,0,1)*sqrt(alpha*(1-alpha)/nsim))
 
 #####################################################################################
 # simulation seed
