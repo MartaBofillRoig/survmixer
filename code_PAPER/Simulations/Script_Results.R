@@ -33,6 +33,13 @@ summary(data$os_effect)
 
 summary(data)
 
+median(data$Test_Reject);sd(data$Test_Reject)
+median(data$Test_Reject_LR);sd(data$Test_Reject_LR)
+
+median(data$Test_Reject_size);sd(data$Test_Reject_size)
+median(data$Test_Reject_LR_size);sd(data$Test_Reject_LR_size)
+
+
 ############
 # Boxplots alpha and power
 
