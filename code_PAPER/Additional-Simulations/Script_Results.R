@@ -44,35 +44,33 @@ windows(height = 14, width = 14)
 p1 <- ggplot(data, aes(x=cases, y=Test_Reject,  color=cases)) +
   geom_boxplot() +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.4, alpha=1)  + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+  geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 p2 <- ggplot(data, aes(x=cases, y=Test_Reject_LR,  color=cases)) +
-  geom_boxplot() +
+  geom_boxplot() + labs(y = "Power log-rank test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1)) +
+  # geom_point(color="grey50") +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Power logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
+  geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1))
++ labs(y = "Power log-rank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 diff_p12 <- ggplot(data, aes(x=cases, y=diff_power,  color=cases)) +
-  geom_boxplot() +
-  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Difference Power (RMST - logrank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
+  geom_boxplot()  + labs(y = "Difference Power (RMST - log-rank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
 
 p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
   geom_boxplot() +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Significance level RMST test", x ="Settings", color ="Settings")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Significance level RMST test", x ="Settings", color ="Settings")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 p4 <- ggplot(data, aes(x=cases, y=Test_Reject_LR_size, color=cases)) +
   geom_boxplot() +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.4, alpha=1)+ labs(y = "Significance level logrank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
+  geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Significance level log-rank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
-  geom_boxplot() +
-  scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-  geom_jitter(color="grey50", size=0.4, alpha=1) + labs(y = "Difference Significance level (RMST - logrank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
+  geom_boxplot()  + labs(y = "Difference Significance level (RMST - log-rank )", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(-0.03, 0.03))
 
 
 figure <- ggarrange(p1,p2,diff_p12,p3,p4,diff_p34, ncol=3, nrow=2, common.legend = TRUE, legend="bottom")
 annotate_figure(figure,
                 top = text_grob("Power and Significance level",
-                # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
-                face = "bold", size = 14))
+                                # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
+                                face = "bold", size = 14))
 
 #
 
@@ -80,6 +78,7 @@ windows(height = 14, width = 12)
 figure_mod <- ggarrange(p1,p2,p3,p4, ncol=2, nrow=2, common.legend = TRUE, legend="bottom")
 annotate_figure(figure_mod,
                 top = text_grob("Power and Significance level",
+                                # top = text_grob(expression(paste("Power and Significance level (", bshape^{(0)}, "=", bshape^{(1)}, ")")),
                                 face = "bold", size = 14))
 
 ############
