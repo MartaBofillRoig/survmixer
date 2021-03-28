@@ -19,7 +19,8 @@
 #'
 #' @export
 #' @import stats
-#' @example survm_effectsize(ascale0_r=8.37,ascale0_nr=5.61,ascale1_r=35.90,ascale1_nr=5.61,delta_p=0.19,p0=0.19,tau=5)
+#' @examples
+#' survm_effectsize(ascale0_r=8,ascale0_nr=5.6,ascale1_r=36,ascale1_nr=5.6,delta_p=0.2,p0=0.2,tau=5)
 #' @return This function returns the overall mean survival improvement (RMST difference between groups) and  it also includes the mean survival improvement that would be assumed for each responders and non-responders.
 #' @author Marta Bofill Roig.
 #' @references Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887

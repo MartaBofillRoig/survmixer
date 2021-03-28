@@ -53,6 +53,9 @@ This function returns the overall mean survival improvement (RMST difference bet
 \description{
 The function `survm_effectsize` calculates the effect size in terms of the difference of restricted mean survival times (RMST) according to the information on responders and non-responders.
 }
+\examples{
+survm_effectsize(ascale0_r=8,ascale0_nr=5.6,ascale1_r=36,ascale1_nr=5.6,delta_p=0.2,p0=0.2,tau=5)
+}
 \references{
 Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
 }
