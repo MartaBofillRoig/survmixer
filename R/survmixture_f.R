@@ -10,7 +10,8 @@
 #' @param p event rate for the response
 #'
 #' @export
-#'
+#' @examples
+#' survmixture_f(t=0.2,ascale_r=8,ascale_nr=5.6,p=0.2)
 #' @return This function returns the survival function evaluated at t based on a  mixture model of  responders and non-responders.
 #' @author Marta Bofill Roig.
 #' @references Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887

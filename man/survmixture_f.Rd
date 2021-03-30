@@ -23,6 +23,9 @@ This function returns the survival function evaluated at t based on a  mixture m
 \description{
 The function `survmixture_f` computes the survival distribution as a mixture of  responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.
 }
+\examples{
+survmixture_f(t=0.2,ascale_r=8,ascale_nr=5.6,p=0.2)
+}
 \references{
 Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887
 }
