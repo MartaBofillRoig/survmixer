@@ -23,6 +23,10 @@ The functions included in this repository are the following:
 
 ## R Package
 
+The R package survmixer is available on CRAN:
+
+https://cran.r-project.org/web/packages/survmixer/index.html
+
 Installation of the R package *survmixer* from GitHub:
 
 ``` r
