@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Mixture survival function — survmixture_f" />
-<meta property="og:description" content="The function `survmixture_f` computes the survival distribution as a mixture of  of responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions." />
+<meta property="og:description" content="The function `survmixture_f` computes the survival distribution as a mixture of  responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">survmixer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3</span>
       </span>
     </div>
 
@@ -109,10 +109,10 @@
     </div>
 
     <div class="ref-description">
-    <p>The function `survmixture_f` computes the survival distribution as a mixture of  of responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.</p>
+    <p>The function `survmixture_f` computes the survival distribution as a mixture of  responders and non-responders. The responders and non-responders distributions are assumed to be Weibull distributions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>survmixture_f</span>(<span class='no'>t</span>, <span class='no'>ascale_r</span>, <span class='no'>ascale_nr</span>, <span class='kw'>bshape</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>p</span>)</pre>
+    <pre class="usage"><span class='fu'>survmixture_f</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>ascale_r</span>, <span class='va'>ascale_nr</span>, bshape <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>p</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,8 +141,17 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Mixture survival function evaluated at t</p>
+    <p>This function returns the survival function evaluated at t based on a  mixture model of  responders and non-responders.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
+    <p>Design of phase III trials with long-term survival outcomes based on short-term binary results. Marta Bofill Roig, Yu Shen, Guadalupe Gomez Melis. 	arXiv:2008.12887</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Marta Bofill Roig.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>survmixture_f</span><span class='op'>(</span>t<span class='op'>=</span><span class='fl'>0.2</span>,ascale_r<span class='op'>=</span><span class='fl'>8</span>,ascale_nr<span class='op'>=</span><span class='fl'>5.6</span>,p<span class='op'>=</span><span class='fl'>0.2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 0.9669947</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -158,7 +167,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

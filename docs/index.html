@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design of clinical trials with survival endpoints based on binary response. • survmixer</title>
+<title>Design of Clinical Trials with Survival Endpoints Based on Binary Responses • survmixer</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Design of clinical trials with survival endpoints based on binary response.">
-<meta property="og:description" content="Sample size and effect size calculations for survival endpoints based on mixture survival-by-response model.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Design of Clinical Trials with Survival Endpoints Based on Binary Responses">
+<meta property="og:description" content="Sample size and effect size calculations for survival endpoints based on mixture survival-by-response model. The methods implemented can be found in  Bofill, Shen &amp; Gómez (2021) &lt;arXiv:2008.12887&gt;. ">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">survmixer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3</span>
       </span>
     </div>
 
@@ -63,7 +63,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#survmixer" class="anchor"></a>survmixer</h1></div>
 <p>Sample size and effect size calculation for overall survival given the information on short-term binary endpoints.</p>
-<p>In this work, we consider a mixture model that relates both the survival and binary endpoints. We distinguish between patients who respond to the binary endpoint, called responders, ant those who don’t, non-responders. We use the difference of the restricted mean survival times (RMSTs) as the basis of the comparison between arms.</p>
+<p>In this work, we consider a mixture model that relates both the survival and binary endpoints. We distinguish between patients who respond to the binary endpoint, called responders, and those who don’t, non-responders. We use the difference of the restricted mean survival times (RMSTs) as the basis of the comparison between arms.</p>
 <p>The expected effect size (RMSTs difference) and sample size are then calculated on the basis of the response rate of the binary endpoint as well as on the survival functions for responders and non-responders in each treatment arm.</p>
 <div id="description" class="section level2">
 <h2 class="hasAnchor">
@@ -74,18 +74,27 @@
 <li>
 <em>survmixture_f</em> to compute the survival distribution under the mixture model;</li>
 <li>
-<em>survm_effectsize</em> to calculate the effect size (in terms of the RMST difference) according to the information on responders;</li>
+<em>survm_effectsize</em> to calculate the effect size (in terms of the RMST difference) according to the information on responders and non-responders;</li>
 <li>
 <em>survm_samplesize</em> to calculate the sample size according to the distributional parameters of the responders and non-responders.</li>
 </ul>
 </div>
-<div id="installation" class="section level2">
+<div id="r-package" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<a href="#r-package" class="anchor"></a>R Package</h2>
+<p>The R package <em>survmixer</em> is available on CRAN:</p>
+<p><a href="https://cran.r-project.org/web/packages/survmixer/index.html" class="uri">https://cran.r-project.org/web/packages/survmixer/index.html</a></p>
+<p>You can install the R package from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># install.packages("survmixer")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">survmixer</span><span class="op">)</span> </pre></div>
+<p>or install the development version from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="co"># install.packages("devtools")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
 <span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"MartaBofillRoig/survmixer"</span><span class="op">)</span></pre></div>
+<p>If you are a newcomer, you can take a look at the functions of the package using the vignettes:</p>
+<p><a href="https://martabofillroig.github.io/survmixer/" class="uri">https://martabofillroig.github.io/survmixer/</a></p>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
@@ -95,12 +104,26 @@
 <li>“Design of phase III trials with long-term survival outcomes based on short-term binary results”. Marta Bofill Roig, Yu Shen, Guadalupe Gómez Melis. (2020). <a href="https://arxiv.org/abs/2008.12887" class="uri">https://arxiv.org/abs/2008.12887</a>
 </li>
 </ul>
+<p>Specifically,</p>
+<ul>
+<li>In the folder CODE_paper/Example, there is the source code for reproduce the illustration;</li>
+<li>In the folder CODE_paper/Simulations, there is the code to reproduce the simulation study in the paper;</li>
+<li>In the folder CODE_paper/Additional-Simulations, there is the code to reproduce the simulation scenarios presented in the supplementary material;</li>
+<li>Finally, in the folder CODE_paper/Sensitivity, there is the code to reproduce the simulation study to evaluate the performance of the sample size formula with respect to missepecifications in the model.</li>
+</ul>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="license">
+    <div class="links">
+<h2>Links</h2>
+<ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=survmixer">https://​cloud.r-project.org/​package=survmixer</a>
+</li>
+</ul>
+</div>
+<div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
