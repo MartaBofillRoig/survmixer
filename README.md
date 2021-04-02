@@ -23,17 +23,29 @@ The functions included in this repository are the following:
 
 ## R Package
 
-The R package survmixer is available on CRAN:
+The R package *survmixer* is available on CRAN:
 
 https://cran.r-project.org/web/packages/survmixer/index.html
 
-Installation of the R package *survmixer* from GitHub:
+You can install the R package from CRAN:
+
+``` r
+# install.packages("survmixer")
+library(survmixer) 
+```
+
+or install the development version from GitHub:
 
 ``` r
 # install.packages("devtools")
 library(devtools)
 install_github("MartaBofillRoig/survmixer")
 ```
+
+If you are a newcomer, you can take a look at the functions of the package using the vignettes:
+
+https://martabofillroig.github.io/survmixer/
+
 
 ## References
 
