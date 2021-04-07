@@ -42,24 +42,24 @@ summary(data$os_effect)
 windows(height = 14, width = 14)
 
 p1 <- ggplot(data, aes(x=cases, y=Test_Reject,  color=cases)) +
-  geom_boxplot() +
+  geom_boxplot(outlier.shape = NA) +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Power RMST test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 p2 <- ggplot(data, aes(x=cases, y=Test_Reject_LR,  color=cases)) +
-  geom_boxplot() + labs(y = "Power log-rank test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1)) +
+  geom_boxplot(outlier.shape = NA) + labs(y = "Power log-rank test", x ="Settings", color ="Settings")+ coord_cartesian(ylim = c(0.65, 1)) +
   # geom_point(color="grey50") +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1))
 + labs(y = "Power log-rank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.65, 1))#+ ylim(0.65, 0.9)
 diff_p12 <- ggplot(data, aes(x=cases, y=diff_power,  color=cases)) +
-  geom_boxplot()  + labs(y = "Difference Power (RMST - log-rank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
+  geom_boxplot(outlier.shape = NA)  + labs(y = "Difference Power (RMST - log-rank) ", x ="Settings", color ="Settings") #+ coord_cartesian(ylim = c(-0.1, 0.1))
 
 p3 <- ggplot(data, aes(x=cases, y=Test_Reject_size, color=cases)) +
-  geom_boxplot() +
+  geom_boxplot(outlier.shape = NA) +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Significance level RMST test", x ="Settings", color ="Settings")  + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 p4 <- ggplot(data, aes(x=cases, y=Test_Reject_LR_size, color=cases)) +
-  geom_boxplot() +
+  geom_boxplot(outlier.shape = NA) +
   scale_fill_viridis(discrete = TRUE, alpha=0.6) +
   geom_jitter(color="grey50", size=0.8, alpha=1,position=position_jitter(width = 0.1)) + labs(y = "Significance level log-rank test", x ="Settings", color ="Settings") + coord_cartesian(ylim = c(0.035, 0.08)) # + ylim(0.035, 0.09)
 diff_p34 <- ggplot(data, aes(x=cases, y=diff_alpha,  color=cases)) +
@@ -91,7 +91,7 @@ p5 <- ggplot(data, aes(x=cases, y=os_samplesize,  color=cases)) +
 p5_bis <-  ggplot(data, aes(x=NA., y=os_samplesize, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Sample size",x = "Scenarios") +
   theme(legend.position = "none",  axis.text.x = element_blank())
 p6 <- ggplot(data, aes(x=cases, y=os_effect,  color=cases)) +
-  geom_boxplot() + labs(y = "Effect size (RMST difference)", x ="Settings", color ="Settings")
+  geom_boxplot(outlier.shape = NA) + labs(y = "Effect size (RMST difference)", x ="Settings", color ="Settings")
 p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Effect size",x = "Scenarios")+
   theme(legend.position = "none",  axis.text.x = element_blank())
 

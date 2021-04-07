@@ -95,7 +95,7 @@ p5 <- ggplot(data, aes(x=cases, y=os_samplesize,  color=cases)) +
 p5_bis <-  ggplot(data, aes(x=NA., y=os_samplesize, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Sample size",x = "Scenarios") +
   theme(legend.position = "none",  axis.text.x = element_blank())
 p6 <- ggplot(data, aes(x=cases, y=os_effect,  color=cases)) +
-  geom_boxplot() + labs(y = "Effect size (RMST difference)", x ="Settings", color ="Settings")
+  geom_boxplot(outlier.shape = NA) + labs(y = "Effect size (RMST difference)", x ="Settings", color ="Settings")
 p6_bis <- ggplot(data, aes(x=NA., y=os_effect, shape=cases, color=cases)) + geom_point(size=2)+ labs(y = "Effect size",x = "Scenarios")+
   theme(legend.position = "none",  axis.text.x = element_blank())
 
